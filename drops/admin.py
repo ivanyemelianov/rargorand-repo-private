@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Drop
+
+class DropAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title']
+    search_fields = ['title', 'description']
+
+admin.site.register(Drop, DropAdmin)

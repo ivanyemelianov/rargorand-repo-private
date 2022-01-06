@@ -1,6 +1,13 @@
 from django.http import HttpResponse
+from django.template.loader import render_to_string
+from drops.models import Drop
 
-HTML_STRING = "<h1>Hello!</h1>"
+drop_qs = Drop.objects.all()
+context = {
+    "obj_list": drop_qs,
+}
 
-def home_view(request):
+HTML_STRING = render_to_string("home-view.html", context=context)
+
+def home_view(request, *args, **kwargs):
     return HttpResponse(HTML_STRING)

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Rargorand</h1>
+<p>Featured Collections</p>
+<p>Featured Drops</p>
+<p>Top Collections</p>
+<ul>
+    {% for x in obj_list%}
+        {% if x.title %}
+            <li><a href="/drops/{{ x.id }}">{{ x.title }} - {{ x.description }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+{% endblock content%}
