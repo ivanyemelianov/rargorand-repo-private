@@ -22,6 +22,7 @@ from .views import home_view
 urlpatterns = [
     path('', home_view),
     path('drops/', views.drop_search_view),
+    path('drops/create/', views.drop_create_view),
     path('drops/<int:id>/', views.drop_detail_view),
     path('admin/', admin.site.urls),
 ]

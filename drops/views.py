@@ -18,6 +18,17 @@ def drop_search_view(request):
     }
     return render(request, "drops/drop-search.html", context=context)
 
+def drop_create_view(request):
+    context = {}
+    if request.method == "POST":
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        drop_object = Drop.objects.create(title=title, description=description)
+        context['objest'] = drop_object
+        context['created'] = True   
+    return render(request, "drops/drop-create.html", context=context)
+
+
 def drop_detail_view(request, id=None):
     drop_obj = None
     if id is not None:
