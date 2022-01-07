@@ -10,6 +10,10 @@
         <button type="submit" style="margin-top: 10px;">Create</button>
     </form>
 </div>
+{% else %}
+
+<a href="/drops/{{ object.id }}">{{ object.title }} - {{ object.description }}</a>
+
 {% endif %}
 
 {% endblock content%}

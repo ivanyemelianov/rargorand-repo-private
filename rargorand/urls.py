@@ -16,13 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from drops import views
+from accounts.views import (
+    login_view
+)
+from drops.views import (
+    drop_search_view,
+    drop_create_view,
+    drop_detail_view
+)
 from .views import home_view
 
 urlpatterns = [
     path('', home_view),
-    path('drops/', views.drop_search_view),
-    path('drops/create/', views.drop_create_view),
-    path('drops/<int:id>/', views.drop_detail_view),
+    path('drops/', drop_search_view),
+    path('drops/create/', drop_create_view),
+    path('drops/<int:id>/', drop_detail_view),
     path('admin/', admin.site.urls),
+    path('login/', login_view),
 ]
