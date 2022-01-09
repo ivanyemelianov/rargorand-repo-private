@@ -3,17 +3,19 @@
 {% block content %}
 
 {% if not created %}
+
+<h2 style="color: #51a82e;">Add Listing</h2>
 <div style="margin-top: 30px;">
-    <form action="." method="POST"> {% csrf_token %}
-        <div style="margin-top: 30px;"><input type="text" name="title" placeholder="Title"></div>
-        <div style="margin-top: 10px;"><textarea name="description" id="" cols="30" rows="10" placeholder="Description"></textarea></div>
-        <button type="submit" style="margin-top: 10px;">Create</button>
+    <form action="." method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button style="margin-top: 30px;" type="submit">Create drop</button>
     </form>
 </div>
 {% else %}
 
-<a href="/drops/{{ object.id }}">{{ object.title }} - {{ object.description }}</a>
+<p>Your listing was added</p>
+<a href="/drops/{{ object.id }}/">{{ object.title }} - {{ object.description }}</a>
 
 {% endif %}
-
-{% endblock content%}
+{% endblock content %}

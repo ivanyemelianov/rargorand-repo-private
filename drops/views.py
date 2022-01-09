@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+from .forms import DropForm
 from .models import Drop
 
 def drop_search_view(request):
@@ -22,13 +23,13 @@ def drop_search_view(request):
 
 @login_required
 def drop_create_view(request):
-    context = {}
-    if request.method == "POST":
-        title = request.POST.get("title")
-        description = request.POST.get("description")
-        drop_object = Drop.objects.create(title=title, description=description)
-        context['objest'] = drop_object
-        context['created'] = True   
+    form = DropForm(request.POST or None)
+    context = {
+        "form": form
+    }
+    if form.is_valid():
+        drop_obj = form.save()
+        context['form'] = DropForm() 
     return render(request, "drops/drop-create.html", context=context)
 
 
