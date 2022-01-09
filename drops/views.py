@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from .models import Drop
+
 def drop_search_view(request):
     query_dict = request.GET
     #query = query_dict.get("q")
@@ -18,6 +20,7 @@ def drop_search_view(request):
     }
     return render(request, "drops/drop-search.html", context=context)
 
+@login_required
 def drop_create_view(request):
     context = {}
     if request.method == "POST":

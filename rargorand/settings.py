@@ -51,6 +51,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'rargorand.urls'
+LOGIN_URL='/login/'
 
 TEMPLATES = [
     {
