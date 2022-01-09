@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path
 
 from accounts.views import (
-    login_view
+    login_view,
+    logout_view
 )
 from drops.views import (
     drop_search_view,
@@ -33,4 +34,5 @@ urlpatterns = [
     path('drops/<int:id>/', drop_detail_view),
     path('admin/', admin.site.urls),
     path('login/', login_view),
+    path('logout/', logout_view),
 ]
