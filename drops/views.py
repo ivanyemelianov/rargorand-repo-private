@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.shortcuts import render
 
 from .forms import DropForm
@@ -33,11 +34,17 @@ def drop_create_view(request):
     return render(request, "drops/drop-create.html", context=context)
 
 
-def drop_detail_view(request, id=None):
+def drop_detail_view(request, slug=None):
     drop_obj = None
-    if id is not None:
-        drop_obj = Drop.objects.get(id=id)
-
+    if slug is not None:
+        try:
+            drop_obj = Drop.objects.get(slug=slug)
+        except Drop.DoesNotExist:
+            raise Http404
+        except Drop.MultipleObjectsreturned:
+            drop_obj = Drop.objects.filter(slug=slug).first()
+        except:
+            raise Http404
     context = {
         "object": drop_obj,
     }

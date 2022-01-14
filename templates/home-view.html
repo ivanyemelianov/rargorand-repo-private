@@ -8,7 +8,7 @@
 <ul>
     {% for x in obj_list%}
         {% if x.title %}
-            <li><a href="/drops/{{ x.id }}">{{ x.title }} - {{ x.description }}</a></li>
+            <li><a href="/drops/{{ x.slug }}">{{ x.title }} - {{ x.description }}</a></li>
         {% endif %}
     {% endfor %}
 </ul>

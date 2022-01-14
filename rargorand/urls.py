@@ -32,7 +32,7 @@ urlpatterns = [
     path('', home_view),
     path('drops/', drop_search_view),
     path('drops/create/', drop_create_view),
-    path('drops/<int:id>/', drop_detail_view),
+    path('drops/<slug:slug>/', drop_detail_view),
     path('admin/', admin.site.urls),
     path('login/', login_view),
     path('logout/', logout_view),
