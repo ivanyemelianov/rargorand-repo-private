@@ -15,3 +15,4 @@ def slugify_instance_title(instance, save=False, new_slug=None):
     instance.slug = slug
     if save:
         instance.save()
+    return instance
