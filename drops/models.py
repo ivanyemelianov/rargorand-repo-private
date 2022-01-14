@@ -10,8 +10,6 @@ class Drop(models.Model):
     timestamp = models.DateField(auto_now=False, auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        if self.slug is None:
-            self.slug = slugify(self.title)
         super().save(*args, **kwargs)   
 
 def drop_pre_save(sender, instance, *args, **kwargs):
