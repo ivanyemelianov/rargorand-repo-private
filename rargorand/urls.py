@@ -31,13 +31,8 @@ from .views import home_view
 urlpatterns = [
     path('', home_view),
     path('drops/', drop_search_view),
-<<<<<<< HEAD
-    path('drops/create/', drop_create_view),
-    path('drops/<slug:slug>/', drop_detail_view),
-=======
     path('drops/create/', drop_create_view, name='drop-create'),
     path('drops/<slug:slug>/', drop_detail_view, name='drop-detail'),
->>>>>>> e3e2775 (Reverse URLs and fixing home view)
     path('admin/', admin.site.urls),
     path('login/', login_view),
     path('logout/', logout_view),

@@ -9,11 +9,7 @@
 <ul>
     {% for x in object_list %}
         {% if x.title %}
-<<<<<<< HEAD
-            <li><a href="/drops/{{ x.slug }}">{{ x.title }} - {{ x.description }}</a></li>
-=======
             <li><a href="{{ x.get_absolute_url }}">{{ x.title }} - {{ x.description }}</a></li>
->>>>>>> e3e2775 (Reverse URLs and fixing home view)
         {% endif %}
     {% endfor %}
 </ul>

@@ -3,15 +3,6 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from drops.models import Drop
 
-<<<<<<< HEAD
-drop_qs = Drop.objects.all()
-context = {
-    "obj_list": drop_qs,
-}
-
-HTML_STRING = render_to_string("home-view.html", context=context)
-=======
->>>>>>> e3e2775 (Reverse URLs and fixing home view)
 
 def home_view(request, *args, **kwargs):
     """

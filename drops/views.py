@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render, redirect
 
@@ -6,19 +7,13 @@ from .forms import DropForm
 from .models import Drop
 
 def drop_search_view(request):
-    query_dict = request.GET
-    #query = query_dict.get("q")
-
-    try:
-        query = int(query_dict.get("q"))
-    except:
-        query = None
-
-    drop_obj = None
+    query = request.GET.get('q')
+    qs = Drop.objects.all()
     if query is not None:
-        drop_obj = Drop.objects.get(id=query)
+        lookups = Q(title__icontains=query) | Q(description__icontains=query)
+        qs = Drop.objects.filter(lookups)
     context = {
-        "object": drop_obj
+        "object_list": qs
     }
     return render(request, "drops/drop-search.html", context=context)
 
