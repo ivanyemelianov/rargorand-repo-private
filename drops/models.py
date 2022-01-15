@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models.signals import pre_save, post_save
-
+from django.urls import reverse
 from .utils import slugify_instance_title
 
 class Drop(models.Model):
@@ -8,6 +8,9 @@ class Drop(models.Model):
     slug = models.SlugField(unique=True, blank=True, null=True)
     description = models.TextField()
     timestamp = models.DateField(auto_now=False, auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse("drop-detail", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)   
