@@ -6,8 +6,8 @@ from .utils import slugify_instance_title
 
 class DropTestCase(TestCase):
     def setUp(self):
-        self.number_of_articles = 500
-        for i in range(0, self.number_of_articles):
+        self.number_of_drops = 500
+        for i in range(0, self.number_of_drops):
             Drop.objects.create(title='Hello world', description='Something')
 
     def test_queryset_exists(self):
@@ -16,7 +16,7 @@ class DropTestCase(TestCase):
 
     def test_queryset_count(self):
         qs = Drop.objects.all()
-        self.assertEqual(qs.count(), self.number_of_articles)
+        self.assertEqual(qs.count(), self.number_of_drops)
 
     def test_hello_world_slug(self):
         obj = Drop.objects.all().order_by("id").first()
@@ -46,3 +46,7 @@ class DropTestCase(TestCase):
         slug_list = Drop.objects.all().values_list('slug', flat=True)
         unique_slug_list = list(set(slug_list))
         self.assertEqual(len(slug_list), len(unique_slug_list))
+
+    def test_drop_search_manager(self):
+        qs = Drop.objects.search(query="hello world")
+        self.assertEqual(qs.count(), self.number_of_drops)
