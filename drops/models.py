@@ -27,6 +27,10 @@ class Drop(models.Model):
     slug = models.SlugField(unique=True, blank=True, null=True)
     description = models.TextField()
     timestamp = models.DateField(auto_now=False, auto_now_add=True)
+    #picture =
+    #releasedateandtime =
+    #genre =
+    #hourstorelease =
 
     objects = DropManager()
 
