@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 """
@@ -31,7 +32,7 @@ class NftCollection(models.Model):
     #picture =
 
     def get_absolute_url(self):
-        return "/library/nftcollections/"
+        return reverse("nftcollections:detail", kwargs={"id": self.id})
     
 
 class Nft(models.Model):

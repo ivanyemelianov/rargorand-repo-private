@@ -5,7 +5,7 @@
 <p>Featured Collections</p>
 <p>Featured Drops</p>
 <p>Top Collections</p>
-<a href="{% url 'drop-create' %}">Create Drop</a>
+<a href="{% url 'drops:create' %}">Create Drop</a>
 <ul>
     {% for x in object_list %}
         {% if x.title %}

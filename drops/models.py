@@ -38,7 +38,7 @@ class Drop(models.Model):
     objects = DropManager()
 
     def get_absolute_url(self):
-        return reverse("drop-detail", kwargs={"slug": self.slug})
+        return reverse("drops:detail", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)   

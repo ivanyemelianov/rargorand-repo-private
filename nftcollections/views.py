@@ -36,8 +36,8 @@ def nftcollection_create_view(request):
 
 @login_required
 def nftcollection_update_view(request, id=None):
-    form = NftCollectionForm(request.POST or None)
-    qs = NftCollection.objects.filter(NftCollection, id=id, user=request.user)
+    obj = get_object_or_404(Recipe, id=id, user=request.user)
+    form = NftCollectionForm(request.POST or None, instance=obj)
     context = {
         "form": form,
         "object": obj
