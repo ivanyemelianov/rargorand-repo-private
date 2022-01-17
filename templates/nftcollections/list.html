@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>My NFT Collections</h1>
+<a href="{% url 'nftcollections:create' %}">Create Collection</a>
+<ul>
+    {% for x in object_list %}
+        <li><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock content%}

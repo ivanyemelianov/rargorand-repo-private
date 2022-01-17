@@ -33,6 +33,12 @@ class NftCollection(models.Model):
 
     def get_absolute_url(self):
         return reverse("nftcollections:detail", kwargs={"id": self.id})
+
+    def get_edit_url(self):
+        return reverse("nftcollections:update", kwargs={"id": self.id})
+
+    def get_nfts_children(self):
+        return self.nft_set.all()
     
 
 class Nft(models.Model):

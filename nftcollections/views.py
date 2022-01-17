@@ -11,15 +11,15 @@ def nftcollection_list_view(request, id=None):
     context = {
         "object_list": qs
     }
-    return render(request, "nfcollections/list.html", context)
+    return render(request, "nftcollections/list.html", context)
 
 @login_required
 def nftcollection_detail_view(request, id=None):
-    qs = NftCollection.objects.filter(NftCollection, id=id, user=request.user)
+    obj = get_object_or_404(NftCollection, id=id, user=request.user)
     context = {
         "object": obj
     }
-    return render(request, "nfcollections/detail.html", context)
+    return render(request, "nftcollections/detail.html", context)
 
 @login_required
 def nftcollection_create_view(request):
@@ -32,11 +32,11 @@ def nftcollection_create_view(request):
         obj.user = request.user
         obj.save()
         return redirect(obj.get_absolute_url())
-    return render(request, "nfcollections/create-update.html", context)
+    return render(request, "nftcollections/create-update.html", context)
 
 @login_required
 def nftcollection_update_view(request, id=None):
-    obj = get_object_or_404(Recipe, id=id, user=request.user)
+    obj = get_object_or_404(NftCollection, id=id, user=request.user)
     form = NftCollectionForm(request.POST or None, instance=obj)
     context = {
         "form": form,
@@ -45,4 +45,4 @@ def nftcollection_update_view(request, id=None):
     if form.is_valid():
         form.save()
         context['message'] = "Data saved."
-    return render(request, "nfcollections/create-update.html", context)
+    return render(request, "nftcollections/create-update.html", context)
