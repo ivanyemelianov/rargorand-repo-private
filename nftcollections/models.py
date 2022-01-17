@@ -29,6 +29,9 @@ class NftCollection(models.Model):
     #weeklyvolume = 
     #volumelastweek =
     #picture =
+
+    def get_absolute_url(self):
+        return "/library/nftcollections/"
     
 
 class Nft(models.Model):
@@ -42,3 +45,6 @@ class Nft(models.Model):
     #picture =
     #linktobuy =
     #attributes  (can be another class)
+
+    def get_absolute_url(self):
+        return self.nftcollection.get_absolute_url()
