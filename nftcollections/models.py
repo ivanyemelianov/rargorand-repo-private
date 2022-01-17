@@ -26,6 +26,7 @@ class NftCollection(models.Model):
     featured = models.BooleanField(default=False)
     #sociallinks = 
     #volume =
+    #weeklyvolume = 
     #volumelastweek =
     #picture =
     

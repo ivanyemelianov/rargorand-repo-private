@@ -31,6 +31,9 @@ class Drop(models.Model):
     #releasedateandtime =
     #genre =
     #hourstorelease =
+    #featured =
+    #mostanticipated =
+    #futurefavourite =
 
     objects = DropManager()
 
