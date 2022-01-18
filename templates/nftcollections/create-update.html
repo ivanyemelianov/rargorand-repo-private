@@ -11,6 +11,11 @@
     <form action="." method="POST">
         {% csrf_token %}
         {{ form.as_p }}
+
+        {% if formset %}
+        <h2>NFTs</h2>
+        {{ formset.as_p }}
+        {% endif %}
         <button style="margin-top: 30px;" type="submit">Save</button>
     </form>
 </div>

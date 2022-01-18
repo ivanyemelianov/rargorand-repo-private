@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
+from django.forms.models import modelformset_factory
 from django.shortcuts import redirect, render, get_object_or_404
 
-from .forms import NftCollectionForm
-from .models import NftCollection
+from .forms import NftCollectionForm, NftForm
+from .models import NftCollection, Nft
 # Create your views here.
 
 @login_required
@@ -38,11 +39,23 @@ def nftcollection_create_view(request):
 def nftcollection_update_view(request, id=None):
     obj = get_object_or_404(NftCollection, id=id, user=request.user)
     form = NftCollectionForm(request.POST or None, instance=obj)
+    # Formset = modelformset_factory(Model, form=ModelForm, extra=0)
+    NftFormset = modelformset_factory(Nft, form=NftForm, extra=0)
+    qs = obj.nft_set.all() # []
+    formset = NftFormset(request.POST or None, queryset=qs)
     context = {
         "form": form,
+        "formset": formset,
         "object": obj
     }
-    if form.is_valid():
-        form.save()
-        context['message'] = "Data saved."
+    if all([form.is_valid(), formset.is_valid()]):
+        parent = form.save(commit=False)
+        parent.save()
+        # formset.save()
+        for form in formset:
+            child = form.save(commit=False)
+            if child.nftcollection is None:
+                child.nftcollection = parent
+            child.save()
+        context['message'] = 'Data saved.'
     return render(request, "nftcollections/create-update.html", context)
