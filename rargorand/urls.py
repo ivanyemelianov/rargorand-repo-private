@@ -24,12 +24,18 @@ from accounts.views import (
 from drops.views import (
     drop_search_view,
     drop_create_view,
-    drop_detail_view
+    drop_detail_view,
+    schedule_view
+)
+from nftcollections.views import (
+    all_collections_view
 )
 from .views import home_view
 
 urlpatterns = [
     path('', home_view),
+    path('schedule/', schedule_view),
+    path('allcollections/', all_collections_view),
     path("library/nftcollections/", include('nftcollections.urls')),
     path("drops/", include('drops.urls')),
     path('admin/', admin.site.urls),

@@ -59,3 +59,10 @@ def nftcollection_update_view(request, id=None):
             child.save()
         context['message'] = 'Data saved.'
     return render(request, "nftcollections/create-update.html", context)
+
+def all_collections_view(request):
+    drop_queryset = NftCollection.objects.all()
+    context = {
+        "object_list": drop_queryset,
+    }
+    return render(request, "collections-view.html", context=context)

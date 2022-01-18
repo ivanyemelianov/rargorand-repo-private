@@ -2,6 +2,7 @@
 
 {% block content %}
 {% if not request.user.is_authenticated %}
+<h1 style="color: #51a82e;">Login (9)</h1>
 <div style="margin-top: 30px;">
     <form action="" method="POST"> {% csrf_token %}
         {{ form.as_p }}

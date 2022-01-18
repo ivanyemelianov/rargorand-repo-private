@@ -41,3 +41,10 @@ def drop_detail_view(request, slug=None):
         "object": drop_obj,
     }
     return render(request, "drops/drop-detail.html", context=context)
+
+def schedule_view(request, *args, **kwargs):
+    drop_queryset = Drop.objects.all()
+    context = {
+        "object_list": drop_queryset,
+    }
+    return render(request, "schedule-view.html", context=context)
