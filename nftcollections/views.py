@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.forms.models import modelformset_factory
+from django.http import HttpResponse, Http404
+from django.urls import reverse
 from django.shortcuts import redirect, render, get_object_or_404
 
 from .forms import NftCollectionForm, NftForm
@@ -16,11 +18,24 @@ def nftcollection_list_view(request, id=None):
 
 @login_required
 def nftcollection_detail_view(request, id=None):
-    obj = get_object_or_404(NftCollection, id=id, user=request.user)
+    hx_url = reverse("nftcollections:hx-detail", kwargs={"id": id})
+    context = {
+        "hx_url": hx_url
+    }
+    return render(request, "nftcollections/detail.html", context)
+
+@login_required
+def nftcollection_detail_hx_view(request, id=None):
+    try:
+        obj = NftCollection.objects.get(id=id, user=request.user)
+    except:
+        obj = None
+    if obj is  None:
+        return HttpResponse("Not found.")
     context = {
         "object": obj
     }
-    return render(request, "nftcollections/detail.html", context)
+    return render(request, "nftcollections/partials/detail.html", context) 
 
 @login_required
 def nftcollection_create_view(request):
@@ -54,10 +69,11 @@ def nftcollection_update_view(request, id=None):
         # formset.save()
         for form in formset:
             child = form.save(commit=False)
-            if child.nftcollection is None:
-                child.nftcollection = parent
+            child.nftcollection = parent
             child.save()
         context['message'] = 'Data saved.'
+    if request.htmx:
+        return render(request, "nftcollections/partials/forms.html", context)
     return render(request, "nftcollections/create-update.html", context)
 
 def all_collections_view(request):

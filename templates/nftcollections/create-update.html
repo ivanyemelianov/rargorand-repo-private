@@ -6,34 +6,39 @@
     .nft-form {
         border-bottom: 1px solid black;
     }
+    .hidden {
+        display: none
+    }
 </style>
-{% if message %}
-<p>{{ message }}</p>
-{% endif %}
+
 <div style='margin-top:30px;'>
-    <form action='.' method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-        <div class='{% if field.field.required %}{{ form.required_css_class }}{%endif%}'>
-        {{ field.errors }}   
-        {{ field.label_tag }} {{ field }}
-        {% if field.help_text %}
-            <p class="help">{{ field.help_text|safe }}</p>
-        {% endif %}
-        </div>
-        {% endfor %}
-
-
-        {% if formset %}
-        <h3>NFTs</h3>
-        {{ formset.management_form }}
-        {% for form in formset %}
-                <div class='nft-form'>
-                    {{ form.as_p }}
-                </div>
-        {% endfor %}
-        {% endif %}
-        <button style='margin-top:10px;' type='submit' >Save</button>
-    </form>
+    {% include 'nftcollections/partials/forms.html' %}
 </div>
+
+<script>
+    
+    const addMoreBtn = document.getElementById('add-more')
+    const totalNewForms = document.getElementById('id_form-TOTAL_FORMS')
+    
+    addMoreBtn.addEventListener('click', add_new_form)
+    function add_new_form(event) {
+        if (event) {
+            event.preventDefault()
+        }
+        const currentNftForms = document.getElementsByClassName('nft-form')
+        const currentFormCount = currentNftForms.length // + 1
+        const formCopyTarget = document.getElementById('nft-form-list')
+        const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
+        copyEmptyFormEl.setAttribute('class', 'nft-form')
+        copyEmptyFormEl.setAttribute('id', `form-${currentFormCount}`)
+        const regex = new RegExp('__prefix__', 'g')
+        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
+        totalNewForms.setAttribute('value', currentFormCount + 1)
+        // now add new empty form element to our html form
+        formCopyTarget.append(copyEmptyFormEl)
+    }
+    
+
+
+</script>
 {% endblock content %}

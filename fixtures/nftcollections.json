@@ -1,0 +1,81 @@
+[
+{
+    "model": "nftcollections.nftcollection",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "name": "Beargorand",
+        "description": "Beargorand is an NFT collection of Bears and Bulls. 109 Bears and 888 Bulls. 97 Bears - hand made 1/1 NFT's with addition of 12 non-rare bears released prior to first original mint. (109 bears in total). Each Bear NFT is created as a unique piece and undoubtedly rare. Beargorand Bulls are a collection of 888 Unique pieces created with 120+ traits, initially offered to the market that can be acquired by anyone.",
+        "timestamp": "2022-01-16T20:23:47.556Z",
+        "updated": "2022-01-19T04:37:33.772Z",
+        "active": true,
+        "website": "beargorand.com",
+        "featured": false
+    }
+},
+{
+    "model": "nftcollections.nft",
+    "pk": 1,
+    "fields": {
+        "nftcollection": 1,
+        "name": "#1 Bear",
+        "description": "First nft of collection.",
+        "timestamp": "2022-01-16T20:40:47.075Z",
+        "updated": "2022-01-19T04:37:33.775Z",
+        "active": true,
+        "rarity": "0.877"
+    }
+},
+{
+    "model": "nftcollections.nft",
+    "pk": 2,
+    "fields": {
+        "nftcollection": 1,
+        "name": "#2 Bear",
+        "description": "Second NFT in the Beargorand collection",
+        "timestamp": "2022-01-18T01:22:48.972Z",
+        "updated": "2022-01-19T04:37:33.777Z",
+        "active": true,
+        "rarity": "0.988"
+    }
+},
+{
+    "model": "nftcollections.nft",
+    "pk": 4,
+    "fields": {
+        "nftcollection": 1,
+        "name": "#3 Bear",
+        "description": "Third NFT in the Beargorand collection",
+        "timestamp": "2022-01-19T02:52:52.280Z",
+        "updated": "2022-01-19T04:37:33.778Z",
+        "active": true,
+        "rarity": ""
+    }
+},
+{
+    "model": "nftcollections.nft",
+    "pk": 5,
+    "fields": {
+        "nftcollection": 1,
+        "name": "#4 Bear",
+        "description": "Fourth NFT in the Beargorand collection",
+        "timestamp": "2022-01-19T02:52:52.282Z",
+        "updated": "2022-01-19T04:37:33.780Z",
+        "active": true,
+        "rarity": ""
+    }
+},
+{
+    "model": "nftcollections.nft",
+    "pk": 6,
+    "fields": {
+        "nftcollection": 1,
+        "name": "",
+        "description": null,
+        "timestamp": "2022-01-19T04:37:33.781Z",
+        "updated": "2022-01-19T04:37:33.781Z",
+        "active": true,
+        "rarity": ""
+    }
+}
+]

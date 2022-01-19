@@ -34,6 +34,9 @@ class NftCollection(models.Model):
     def get_absolute_url(self):
         return reverse("nftcollections:detail", kwargs={"id": self.id})
 
+    def get_hx_url(self):
+        return reverse("nftcollections:hx-detail", kwargs={"id": self.id})
+
     def get_edit_url(self):
         return reverse("nftcollections:update", kwargs={"id": self.id})
 
