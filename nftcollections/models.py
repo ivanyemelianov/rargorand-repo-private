@@ -58,3 +58,10 @@ class Nft(models.Model):
 
     def get_absolute_url(self):
         return self.nftcollection.get_absolute_url()
+
+    def get_hx_edit_url(self):
+        kwargs = {
+            "parent_id": self.nftcollection.id,
+            "id": self.id
+        }
+        return reverse("nftcollections:hx-nft-detail", kwargs=kwargs)

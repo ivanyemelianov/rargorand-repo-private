@@ -1,0 +1,4 @@
+<div id="nft-{{ object.id}}">
+    {{ object.id }} {{ object.name }} - {{ object.rarity }}
+    <button hx-trigger='click' hx-get='{{ object.get_hx_edit_url }}' hx-target="#nft-{{ object.id}}" >Edit</button>
+</div>

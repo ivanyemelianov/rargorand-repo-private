@@ -54,23 +54,14 @@ def nftcollection_create_view(request):
 def nftcollection_update_view(request, id=None):
     obj = get_object_or_404(NftCollection, id=id, user=request.user)
     form = NftCollectionForm(request.POST or None, instance=obj)
-    # Formset = modelformset_factory(Model, form=ModelForm, extra=0)
-    NftFormset = modelformset_factory(Nft, form=NftForm, extra=0)
-    qs = obj.nft_set.all() # []
-    formset = NftFormset(request.POST or None, queryset=qs)
+    new_nft_url = reverse("nftcollections:hx-nft-create", kwargs={"parent_id": obj.id})
     context = {
         "form": form,
-        "formset": formset,
-        "object": obj
+        "object": obj,
+        "new_nft_url": new_nft_url
     }
-    if all([form.is_valid(), formset.is_valid()]):
-        parent = form.save(commit=False)
-        parent.save()
-        # formset.save()
-        for form in formset:
-            child = form.save(commit=False)
-            child.nftcollection = parent
-            child.save()
+    if form.is_valid():
+        form.save()
         context['message'] = 'Data saved.'
     if request.htmx:
         return render(request, "nftcollections/partials/forms.html", context)
@@ -82,3 +73,37 @@ def all_collections_view(request):
         "object_list": drop_queryset,
     }
     return render(request, "collections-view.html", context=context)
+
+@login_required
+def nftcollection_nft_update_hx_view(request, parent_id=None, id=None):
+    if not request.htmx:
+        raise Http404
+    try:
+        parent_obj = NftCollection.objects.get(id=parent_id, user=request.user)
+    except:
+        parent_obj = None
+    if parent_obj is  None:
+        return HttpResponse("Not found.")
+    instance = None
+    if id is not None:
+        try:
+            instance = Nft.objects.get(nftcollection=parent_obj, id=id)
+        except:
+            instance = None
+    form = NftForm(request.POST or None, instance=instance)
+    url = reverse("nftcollections:hx-nft-create", kwargs={"parent_id": parent_obj.id})
+    if instance:
+        url = instance.get_hx_edit_url()
+    context = {
+        "url": url,
+        "form": form,
+        "object": instance
+    }
+    if form.is_valid():
+        new_obj = form.save(commit=False)
+        if instance is None:
+            new_obj.nftcollection = parent_obj
+        new_obj.save()
+        context['object'] = new_obj
+        return render(request, "nftcollections/partials/nft-inline.html", context) 
+    return render(request, "nftcollections/partials/nft-form.html", context) 
