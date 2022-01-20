@@ -21,23 +21,18 @@ from accounts.views import (
     logout_view,
     register_view
 )
-from drops.views import (
-    drop_search_view,
-    drop_create_view,
-    drop_detail_view,
-    schedule_view
-)
-from nftcollections.views import (
-    all_collections_view
-)
+from drops.views import schedule_view
+from nftcollections.views import all_collections_view
+from search.views import search_view
 from .views import home_view
 
 urlpatterns = [
     path('', home_view),
     path('schedule/', schedule_view),
     path('allcollections/', all_collections_view),
-    path("library/nftcollections/", include('nftcollections.urls')),
-    path("drops/", include('drops.urls')),
+    path('library/nftcollections/', include('nftcollections.urls')),
+    path('drops/', include('drops.urls')),
+    path('search/', search_view, name='search'),
     path('admin/', admin.site.urls),
     path('login/', login_view),
     path('logout/', logout_view),

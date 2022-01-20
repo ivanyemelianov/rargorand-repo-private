@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.db.models import Q
 
 # Create your models here.
 """
@@ -16,6 +17,24 @@ from django.urls import reverse
     - Drops
 """
 
+class NftCollectionQuerySet(models.QuerySet):
+    def search(self, query=None):
+        if query is None or query == "":
+            return self.none()
+        lookups = (
+            Q(name__icontains=query) | 
+            Q(description__icontains=query)
+        )
+        return self.filter(lookups) 
+
+class NftCollectionManager(models.Manager):
+    def get_queryset(self):
+        return NftCollectionQuerySet(self.model, using=self._db)
+
+    def search(self, query=None):
+        return self.get_queryset().search(query=query)
+
+
 class NftCollection(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=220)
@@ -30,6 +49,12 @@ class NftCollection(models.Model):
     #weeklyvolume = 
     #volumelastweek =
     #picture =
+
+    objects = NftCollectionManager()
+
+    @property
+    def title(self):
+        return self.name
 
     def get_absolute_url(self):
         return reverse("nftcollections:detail", kwargs={"id": self.id})

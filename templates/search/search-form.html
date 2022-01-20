@@ -1,0 +1,22 @@
+<div>
+    <form action='/search/' method='GET'>
+        <select name='type' id='search-type'>
+            {% if request.GET.type == 'drop' %}
+                <option value='drop' selected>Drops</option>
+            {% else %}
+                <option value='drop'>Drops</option>
+            {% endif %}
+
+            {% if request.GET.type == 'nftcollection' %}
+            <option value='nftcollection' selected>Nftcollections</option>
+            {% else %}
+                <option value='nftcollection'>Nftcollections</option>
+            {% endif %}
+        </select>
+        
+        <input type='text' id='search-query' name='q' value='{{ request.GET.q }}' hx-get='/search/' hx-trigger='keyup changed delay:200ms' hx-include='#search-type' hx-target='#typeahead-results' />
+        
+        <input type='submit' />
+    </form>
+    <div id='typeahead-results'></div>
+</div>
