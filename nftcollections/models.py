@@ -65,6 +65,9 @@ class NftCollection(models.Model):
     def get_edit_url(self):
         return reverse("nftcollections:update", kwargs={"id": self.id})
 
+    def get_delete_url(self):
+        return reverse("nftcollections:delete", kwargs={"id": self.id})
+
     def get_nfts_children(self):
         return self.nft_set.all()
     
@@ -83,6 +86,13 @@ class Nft(models.Model):
 
     def get_absolute_url(self):
         return self.nftcollection.get_absolute_url()
+
+    def get_delete_url(self):
+        kwargs = {
+            "parent_id": self.nftcollection.id,
+            "id": self.id
+        }
+        return reverse("nftcollections:nft-delete", kwargs=kwargs)
 
     def get_hx_edit_url(self):
         kwargs = {

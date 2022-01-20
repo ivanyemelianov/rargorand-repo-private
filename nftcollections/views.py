@@ -72,6 +72,30 @@ def nftcollection_update_view(request, id=None):
         return render(request, "nftcollections/partials/forms.html", context)
     return render(request, "nftcollections/create-update.html", context)
 
+@login_required
+def nftcollection_delete_view(request, id=None):
+    obj = get_object_or_404(NftCollection, id=id, user=request.user)
+    if request.method == "POST":
+        obj.delete()
+        success_url = reverse('nftcollections:list')
+        return redirect(success_url)
+    context = {
+        "object": obj
+    }
+    return render(request, "nftcollections/delete.html", context)
+
+@login_required
+def nftcollection_nft_delete_view(request, parent_id=None, id=None):
+    obj = get_object_or_404(Nft, nftcollection__id=parent_id, id=id, nftcollection__user=request.user)
+    if request.method == "POST":
+        obj.delete()
+        success_url = reverse('nftcollections:detail', kwargs={"id": parent_id})
+        return redirect(success_url)
+    context = {
+        "object": obj
+    }
+    return render(request, "nftcollections/delete.html", context)
+
 def all_collections_view(request):
     drop_queryset = NftCollection.objects.all()
     context = {
