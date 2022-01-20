@@ -17,7 +17,11 @@ class NftCollectionForm(forms.ModelForm):
         for field in self.fields:
             new_data = {
                 "placeholder": f'Collection {str(field)}',
-                "class": 'form-control'
+                "class": 'form-control',
+                #"hx-post": ".",
+                #"hx-trigger": "keyup changed delay:500ms",
+                #"hx-target": "#nftcollection-container",
+                #"hx-swap": "outerHTML"
             }
             self.fields[str(field)].widget.attrs.update(
                 new_data
