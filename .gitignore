@@ -1,5 +1,6 @@
 .DS_Store
 bin/
+staticfiles-cdn/
 git-commands.txt
 
 # Django #

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,20 +8,7 @@
     <title>Rargorand</title>
 
     <script src="https://unpkg.com/htmx.org@1.6.1"></script>
-    <style>
-        .htmx-indicator {
-            display: none;
-        }
-        .htmx-request .htmx-indicator {
-            display: inline;
-        }
-        .htmx-inverted-indicator {
-            display: inline;
-        }
-        .htmx-request .htmx-inverted-indicator {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href='{% static "nftcollections/nftcollections-htmx.css" %}'>
 </head>
 <body>
     {% include 'search/search-form.html' %}
