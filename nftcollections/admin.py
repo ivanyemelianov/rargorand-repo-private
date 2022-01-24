@@ -2,9 +2,11 @@ from django.contrib.auth import get_user_model
 from django.contrib import admin
 
 # Register your models here.
-from .models import NftCollection, Nft
+from .models import NftCollection, Nft, NftImage
 
 User = get_user_model()
+
+admin.site.register(NftImage)
 
 class NftInline(admin.StackedInline):
     model = Nft

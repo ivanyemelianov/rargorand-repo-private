@@ -162,6 +162,8 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles-cdn"
 
+MEDIA_ROOT = BASE_DIR / "staticfiles-cdn" / "uploads"
+
 from .cdn.conf import * # noqs
 #https://rargorand.nyc3.digitaloceanspaces.com
 

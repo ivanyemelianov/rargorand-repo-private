@@ -1,3 +1,6 @@
+import pathlib
+import uuid
+
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
@@ -48,7 +51,7 @@ class NftCollection(models.Model):
     #volume =
     #weeklyvolume = 
     #volumelastweek =
-    #picture =
+    #image =
 
     objects = NftCollectionManager()
 
@@ -72,6 +75,18 @@ class NftCollection(models.Model):
         return self.nft_set.all()
     
 
+def nft_image_upload_handler(instance, filename):
+    fpath = pathlib.Path(filename)
+    new_fname = str(uuid.uuid1()) # uuid1 -> uuid + timestamps
+    return f"nftcollections/nft/{new_fname}{fpath.suffix}"
+
+
+class NftImage(models.Model):
+    nftcollection = models.ForeignKey(NftCollection, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=nft_image_upload_handler) # path/to/the/actual/file.png
+    # extracted_text
+
+
 class Nft(models.Model):
     nftcollection = models.ForeignKey("NftCollection", on_delete=models.CASCADE)
     name = models.CharField(max_length=220)
@@ -80,7 +95,6 @@ class Nft(models.Model):
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     rarity = models.CharField(max_length=50)
-    #picture =
     #linktobuy =
     #attributes  (can be another class)
 

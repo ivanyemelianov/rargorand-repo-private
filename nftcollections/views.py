@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404
 from django.urls import reverse
 from django.shortcuts import redirect, render, get_object_or_404
 
-from .forms import NftCollectionForm, NftForm
+from .forms import NftCollectionForm, NftForm, NftImageForm
 from .models import NftCollection, Nft
 # Create your views here.
 
@@ -153,7 +153,26 @@ def nft_update_hx_view(request, parent_id=None, id=None):
         new_obj.save()
         context['object'] = new_obj
         return render(request, "nftcollections/partials/nft-inline.html", context) 
-    return render(request, "nftcollections/partials/nft-form.html", context) 
+    return render(request, "nftcollections/partials/nft-form.html", context)
+
+
+def nft_image_upload_view(request, parent_id=None):
+    template_name = "nftcollections/upload-image.html"
+    if request.htmx:
+        template_name = "nftcollection/partials/image-upload-form.html"
+    try:
+        parent_obj = NftCollection.objects.get(id=parent_id, user=request.user)
+    except:
+        parent_obj = None
+    if parent_obj is None:
+        raise Http404
+    form = NftImageForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.nftcollection = parent_obj
+        obj.save()
+    return render(request, template_name, {"form": form})
+
 
 def all_collections_view(request):
     drop_queryset = NftCollection.objects.all()
