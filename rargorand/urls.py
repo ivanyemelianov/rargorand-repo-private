@@ -28,8 +28,8 @@ from .views import home_view
 
 urlpatterns = [
     path('', home_view),
-    path('schedule/', schedule_view),
-    path('allcollections/', all_collections_view),
+    path('schedule/', schedule_view, name='schedule'),
+    path('allcollections/', all_collections_view, name='collections'),
     path('library/nftcollections/', include('nftcollections.urls')),
     path('drops/', include('drops.urls')),
     path('search/', search_view, name='search'),

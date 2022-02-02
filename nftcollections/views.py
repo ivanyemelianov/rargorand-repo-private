@@ -46,7 +46,7 @@ def nftcollection_delete_view(request, id=None):
     context = {
         "object": obj
     }
-    return render(request, "nftcollections/delete.html", context)
+    return render(request, "nftcollections/single.html", context)
 
 @login_required
 def nft_delete_view(request, parent_id=None, id=None):
@@ -70,7 +70,21 @@ def nft_delete_view(request, parent_id=None, id=None):
     }
     return render(request, "nftcollections/delete.html", context)
 
-
+def nftcollection_single_view(request, slug=None):
+    collection_obj = None
+    if slug is not None:
+        try:
+            collection_obj = NftCollection.objects.get(slug=slug)
+        except NftCollection.DoesNotExist:
+            raise Http404
+        except NftCollection.MultipleObjectsReturned:
+            collection_obj = NftCollection.objects.filter(slug=slug).first()
+        except:
+            raise Http404
+    context = {
+        "object": collection_obj,
+    }
+    return render(request, "nftcollections/single.html", context=context)
 
 @login_required
 def nftcollection_detail_hx_view(request, id=None):

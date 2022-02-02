@@ -5,6 +5,8 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.db.models import Q
+from .utils import slugify_instance_title
+from django.db.models.signals import pre_save, post_save
 
 # Create your models here.
 """
@@ -47,6 +49,7 @@ class NftCollection(models.Model):
     active = models.BooleanField(default=True)
     website = models.CharField(max_length=220)
     featured = models.BooleanField(default=False)
+    slug = models.SlugField(unique=True, blank=True, null=True)
     #sociallinks = 
     #volume =
     #weeklyvolume = 
@@ -61,6 +64,9 @@ class NftCollection(models.Model):
 
     def get_absolute_url(self):
         return reverse("nftcollections:detail", kwargs={"id": self.id})
+
+    def get_single_collection_url(self):
+        return reverse("nftcollections:single-collection", kwargs={"slug": self.slug})
 
     def get_hx_url(self):
         return reverse("nftcollections:hx-detail", kwargs={"id": self.id})
@@ -79,6 +85,19 @@ def nft_image_upload_handler(instance, filename):
     fpath = pathlib.Path(filename)
     new_fname = str(uuid.uuid1()) # uuid1 -> uuid + timestamps
     return f"nftcollections/nft/{new_fname}{fpath.suffix}"
+
+def collection_pre_save(sender, instance, *args, **kwargs):
+    if instance.slug is None:
+        slugify_instance_title(instance, save=False)
+
+pre_save.connect(collection_pre_save, sender=NftCollection)
+
+def collection_post_save(sender, instance, created, *args, **kwargs):
+    if created:
+        slugify_instance_title(instance, save=True)
+        instance.save()
+
+post_save.connect(collection_post_save, sender=NftCollection)
 
 
 class NftImage(models.Model):

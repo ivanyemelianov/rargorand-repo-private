@@ -4,7 +4,7 @@
 <h1 style="color: #51a82e;">All Collections (2)</h1>
 <ul>
     {% for x in object_list %}
-        <li><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></li>
+        <li><a href="{{ x.get_single_collection_url }}">{{ x.name }}</a></li>
     {% endfor %}
 </ul>
 

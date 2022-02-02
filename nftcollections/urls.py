@@ -9,7 +9,8 @@ from .views import (
     nftcollection_detail_hx_view,
     nft_update_hx_view,
     nft_delete_view,
-    nft_image_upload_view
+    nft_image_upload_view,
+    nftcollection_single_view
 )
 
 app_name='nftcollections'
@@ -27,4 +28,5 @@ urlpatterns = [
     path("<int:id>/delete/", nftcollection_delete_view, name='delete'),
     path("<int:id>/edit/", nftcollection_update_view, name='update'),
     path("<int:id>/", nftcollection_detail_view, name='detail'),
+    path("<slug:slug>/", nftcollection_single_view, name='single-collection'),
 ]

@@ -1,0 +1,14 @@
+<h1>{{ object.name }}</h1>
+{% if object.get_edit_url %}
+{% endif %}
+<p>{{ object.timestamp }}</p>
+<p>{{ object.description }}</p>
+<p>{{ object.website }}</p>
+
+{% for nft in object.get_nfts_children %}
+<h2>{{ nft.name }}</h2>
+<p>{{ object.name }}</p>
+<p>{{ nft.rarity }}</p>
+<p>{{ nft.timestamp }}</p>
+<p>{{ nft.description }}</p>
+{% endfor %}
