@@ -1,28 +1,12 @@
 import random
-from django.http import HttpResponse
-from django.template.loader import render_to_string
+from django.shortcuts import redirect, render, get_object_or_404
+
 from drops.models import Drop
 
 
 def home_view(request, *args, **kwargs):
-    """
-    Take in a request (Django sends request)
-    Return HTML as a response (We pick to return the response)
-    """
-    name = "Justin" # hard coded
-    random_id = random.randint(1, 4) # pseudo random
-    
-    # from the database??
-    drop_obj = Drop.objects.all().first()
     drop_queryset = Drop.objects.all()
     context = {
         "object_list": drop_queryset,
-        "object": drop_obj,
     }
-    # Django Templates
-    HTML_STRING = render_to_string("home-view.html", context=context)
-    # HTML_STRING = """
-    # <h1>{title} (id: {id})!</h1>
-    # <p>{content}!</p>
-    # """.format(**context)
-    return HttpResponse(HTML_STRING)
+    return render(request, "home-view.html", context=context)

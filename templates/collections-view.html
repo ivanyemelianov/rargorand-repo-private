@@ -4,7 +4,11 @@
 <h1 style="color: #51a82e;">All Collections (2)</h1>
 <ul>
     {% for x in object_list %}
+        {% if not request.user.is_authenticated or user.id != x.user.id %}
         <li><a href="{{ x.get_single_collection_url }}">{{ x.name }}</a></li>
+        {% else %}
+        <li><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></li>
+        {% endif %}
     {% endfor %}
 </ul>
 

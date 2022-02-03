@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 <h1>{{ object.name }}</h1>
 {% if object.get_edit_url %}
 {% endif %}
@@ -12,3 +16,5 @@
 <p>{{ nft.timestamp }}</p>
 <p>{{ nft.description }}</p>
 {% endfor %}
+
+{% endblock content%}
