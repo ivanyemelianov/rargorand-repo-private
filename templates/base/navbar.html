@@ -20,10 +20,10 @@
     <ul>
       {% if request.user.is_authenticated %}
       <li>
-        <a href="library/nftcollections/">My Collections</a>
+        <a href="{% url 'nftcollections:list' %}">My Collections</a>
       </li>
       <li>
-        <a href="#">My Drops</a>
+        <a href="{% url 'drops:list' %}">My Drops</a>
       </li>
       <li>
         <a href="/logout">Logout</a>

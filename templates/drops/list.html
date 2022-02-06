@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="color: #51a82e;">My Drops</h1>
+<a href="{% url 'drops:create' %}">Create Drop</a>
+<ul>
+    {% for x in object_list %}
+        <li><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock content%}

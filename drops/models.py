@@ -40,12 +40,24 @@ class Drop(models.Model):
     @property
     def name(self):
         return self.title
-
+    
     def get_absolute_url(self):
-        return reverse("drops:detail", kwargs={"slug": self.slug})
+        return reverse("drops:detail", kwargs={"id": self.id})
+
+    def get_single_drop_url(self):
+        return reverse("drops:single", kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)   
+        super().save(*args, **kwargs) 
+
+    def get_hx_url(self):
+        return reverse("drops:hx-detail", kwargs={"id": self.id})
+
+    def get_edit_url(self):
+        return reverse("drops:update", kwargs={"id": self.id})
+
+    def get_delete_url(self):
+        return reverse("drops:delete", kwargs={"id": self.id})  
 
 def drop_pre_save(sender, instance, *args, **kwargs):
     if instance.slug is None:

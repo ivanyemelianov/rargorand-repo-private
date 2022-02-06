@@ -28,5 +28,6 @@ urlpatterns = [
     path("<int:id>/delete/", nftcollection_delete_view, name='delete'),
     path("<int:id>/edit/", nftcollection_update_view, name='update'),
     path("<int:id>/", nftcollection_detail_view, name='detail'),
+    
     path("<slug:slug>/", nftcollection_single_view, name='single-collection'),
 ]

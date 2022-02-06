@@ -134,7 +134,6 @@ def nftcollection_update_view(request, id=None):
         return render(request, "nftcollections/partials/forms.html", context)
     return render(request, "nftcollections/create-update.html", context)
 
-
 @login_required
 def nft_update_hx_view(request, parent_id=None, id=None):
     if not request.htmx:

@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 style="color: #51a82e;">Schedule (6)</h1>
+<h1 style="color: #51a82e;">Schedule</h1>
 <ul>
     {% for x in object_list %}
         {% if x.title %}
-            <li><a href="{{ x.get_absolute_url }}">{{ x.title }} - {{ x.description }}</a></li>
+            {% if not request.user.is_authenticated or user.id != x.user.id %}
+            <li><a href="{{ x.get_single_drop_url }}">{{ x.title }}</a></li>
+            {% else %}
+            <li><a href="{{ x.get_absolute_url }}">{{ x.title }}</a></li>
+            {% endif %}
         {% endif %}
     {% endfor %}
 </ul>
