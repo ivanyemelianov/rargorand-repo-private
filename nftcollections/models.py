@@ -39,6 +39,11 @@ class NftCollectionManager(models.Manager):
     def search(self, query=None):
         return self.get_queryset().search(query=query)
 
+def collection_image_upload_handler(instance, filename):
+    fpath = pathlib.Path(filename)
+    new_fname = str(uuid.uuid1()) # uuid1 -> uuid + timestamps
+    return f"nftcollections/collection/{new_fname}{fpath.suffix}"
+
 
 class NftCollection(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -50,11 +55,10 @@ class NftCollection(models.Model):
     website = models.CharField(max_length=220)
     featured = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, blank=True, null=True)
-    #sociallinks = 
-    #volume =
-    #weeklyvolume = 
-    #volumelastweek =
-    #image =
+    sociallinks = models.TextField(blank=True, null=True)
+    volume = models.BigIntegerField(blank=True, null=True)
+    weeklyvolume = models.IntegerField(blank=True, null=True)
+    image = models.ImageField(upload_to=collection_image_upload_handler, blank=True, null=True)
 
     objects = NftCollectionManager()
 
@@ -114,7 +118,7 @@ class Nft(models.Model):
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     rarity = models.CharField(max_length=50)
-    #linktobuy =
+    linktobuy = models.TextField(blank=True, null=True)
     #attributes  (can be another class)
 
     def get_absolute_url(self):

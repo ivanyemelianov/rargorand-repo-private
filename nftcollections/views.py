@@ -101,7 +101,7 @@ def nftcollection_detail_hx_view(request, id=None):
 
 @login_required
 def nftcollection_create_view(request):
-    form = NftCollectionForm(request.POST or None)
+    form = NftCollectionForm(request.POST or None, request.FILES or None)
     context = {
         "form": form
     }
@@ -120,7 +120,7 @@ def nftcollection_create_view(request):
 @login_required
 def nftcollection_update_view(request, id=None):
     obj = get_object_or_404(NftCollection, id=id, user=request.user)
-    form = NftCollectionForm(request.POST or None, instance=obj)
+    form = NftCollectionForm(request.POST or None, request.FILES or None, instance=obj)
     new_nft_url = reverse("nftcollections:hx-nft-create", kwargs={"parent_id": obj.id})
     context = {
         "form": form,

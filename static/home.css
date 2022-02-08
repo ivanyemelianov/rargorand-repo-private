@@ -25,6 +25,9 @@ a {
     color: #fff;
 }
 
+main {
+    min-height: 80vh;
+}
 
 .site-header {
     width: 100%;

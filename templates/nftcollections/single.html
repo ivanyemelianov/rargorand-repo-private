@@ -8,6 +8,7 @@
 <p>{{ object.timestamp }}</p>
 <p>{{ object.description }}</p>
 <p>{{ object.website }}</p>
+<img src="{{ object.image.url }}" alt="">
 
 {% for nft in object.get_nfts_children %}
 <h2>{{ nft.name }}</h2>

@@ -14,7 +14,7 @@ class NftCollectionForm(forms.ModelForm):
     name = forms.CharField(help_text='This is your help! <a href="/contact">Contact us</a>')
     class Meta:
         model = NftCollection
-        fields = ['name', 'description']
+        fields = ['name', 'description', 'image']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

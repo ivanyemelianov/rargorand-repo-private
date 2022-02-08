@@ -51,7 +51,7 @@ def drop_delete_view(request, id=None):
 
 @login_required
 def drop_create_view(request):
-    form = DropForm(request.POST or None)
+    form = DropForm(request.POST or None, request.FILES or None)
     context = {
         "form": form
     }
@@ -70,7 +70,7 @@ def drop_create_view(request):
 @login_required
 def drop_update_view(request, id=None):
     obj = get_object_or_404(Drop, id=id, user=request.user)
-    form = DropForm(request.POST or None, instance=obj)
+    form = DropForm(request.POST or None, request.FILES or None, instance=obj)
     context = {
         "form": form,
         "object": obj,

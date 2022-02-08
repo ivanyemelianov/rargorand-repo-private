@@ -1,3 +1,6 @@
+import pathlib
+import uuid
+
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
@@ -21,19 +24,24 @@ class DropManager(models.Manager):
     def search(self, query=None):
         return self.get_queryset().search(query=query)
 
+def collection_image_upload_handler(instance, filename):
+    fpath = pathlib.Path(filename)
+    new_fname = str(uuid.uuid1()) # uuid1 -> uuid + timestamps
+    return f"drops/{new_fname}{fpath.suffix}"
+
 class Drop(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=120)
     slug = models.SlugField(unique=True, blank=True, null=True)
     description = models.TextField()
+    genre = models.CharField(max_length=120, default=None, blank=True, null=True)
+    featured = models.BooleanField(default=False)
+    mostanticipated = models.BooleanField(default=False)
+    futurefavourite = models.BooleanField(default=False)
+    releasedateandtime = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
     timestamp = models.DateField(auto_now=False, auto_now_add=True)
-    #picture =
-    #releasedateandtime =
-    #genre =
-    #hourstorelease =
-    #featured =
-    #mostanticipated =
-    #futurefavourite =
+    updated = models.DateTimeField(auto_now=True)
+    image = models.ImageField(upload_to=collection_image_upload_handler, blank=True, null=True)
 
     objects = DropManager()
 

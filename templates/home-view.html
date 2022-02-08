@@ -63,14 +63,4 @@
     </div>
 </section>
 
-
-<a href="{% url 'drops:create' %}">Create Drop</a>
-<ul>
-    {% for x in object_list %}
-        {% if x.title %}
-            <li><a href="{{ x.get_absolute_url }}">{{ x.title }} - {{ x.description }}</a></li>
-        {% endif %}
-    {% endfor %}
-</ul>
-<!---->
 {% endblock content%}
