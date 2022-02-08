@@ -119,6 +119,7 @@ class Nft(models.Model):
     active = models.BooleanField(default=True)
     rarity = models.CharField(max_length=50)
     linktobuy = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to=nft_image_upload_handler, blank=True, null=True)
     #attributes  (can be another class)
 
     def get_absolute_url(self):

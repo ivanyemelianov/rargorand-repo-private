@@ -150,7 +150,7 @@ def nft_update_hx_view(request, parent_id=None, id=None):
             instance = Nft.objects.get(nftcollection=parent_obj, id=id)
         except:
             instance = None
-    form = NftForm(request.POST or None, instance=instance)
+    form = NftForm(request.POST or None, request.FILES or None, instance=instance)
     url = reverse("nftcollections:hx-nft-create", kwargs={"parent_id": parent_obj.id})
     if instance:
         url = instance.get_hx_edit_url()
