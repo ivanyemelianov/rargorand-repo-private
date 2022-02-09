@@ -20,9 +20,7 @@
     {% endfor %}
 
     {% if new_nft_url %}
-    <div id='nft-create'>
-        
-    </div>
+    <div id='nft-create'></div>
     <button hx-get="{{ new_nft_url }}" hx-trigger='click' hx-target='#nft-create' hx-swap='beforeend'>Add NFT</button>
     {% endif %}
 </div>

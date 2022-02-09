@@ -4,29 +4,26 @@
 <section class="section-style new-collections">
     <div class="container">
         <div class="row">
-            {% if request.user.is_authenticated %}
-            <div class="col-5">
-                Featured Collection
+            <div class="page-title">
+                <h1>New Collections</h1>
             </div>
-            {% endif %}
-            <div class="col-7">
-                <div class="row">
-                    <div class="col-12">New Collections</div>
-                    <div class="col-6">New Col 1</div>
-                    <div class="col-6">New Col 2</div>
-                    <div class="col-6">New Col 3</div>
-                    <div class="col-6">New Col 4</div>
+            <div class="grid-container-collection">
+                <div class="grid-item-3 featured-collection">
+                    {% for x in featured_collection %}
+                        <img src="{{ x.image.url }}" alt="">
+                    {% endfor %}
                 </div>
+                {% for x in new_collections %}
+                <div class="grid-item">
+                        <img src="{{ x.image.url }}" alt="">
+                </div>
+                {% endfor %}
             </div>
         </div>
         <div class="row">
-            <div class="col-3">New Col 5</div>
-            <div class="col-3">New Col 6</div>
-            <div class="col-3">New Col 7</div>
-            <div class="col-3">New Col 8</div>
-        </div>
-        <div class="row">
-            <a href="{% url 'collections' %}">Explore All Collections -></a>
+            <div class="link-to-all">
+                <a href="{% url 'collections' %}">Explore All Collections -></a>
+            </div>
         </div>
     </div>
 </section>
@@ -34,27 +31,45 @@
 <section class="section-style upcoming-drops">
     <div class="container">
         <div class="row">
-            <div class="col-4">Featured Drop</div>
-            <div class="col-4">Most Unticipated</div>
-            <div class="col-4">Future Favourite</div>
+            <div class="page-title">
+                <h1>Upcoming Drops</h1>
+            </div>
+            <div class="grid-container-drop">
+                <div class="featured-drop">
+                    {% for x in featured_drop %}
+                        <img src="{{ x.image.url }}" alt="">
+                    {% endfor %}
+                </div>
+                <div class="anticipted">
+                    {% for x in most_anticipated %}
+                        <img src="{{ x.image.url }}" alt="">
+                    {% endfor %}
+                </div>
+                <div class="favourite">
+                    {% for x in future_favourite %}
+                        <img src="{{ x.image.url }}" alt="">
+                    {% endfor %}
+                </div>
+                {% for x in upcomming_drops %}
+                <div class="upcoming-drop">
+                        <img src="{{ x.image.url }}" alt="">
+                </div>
+                {% endfor %}
+            </div>
         </div>
         <div class="row">
-            <div class="col-2">Drop 1</div>
-            <div class="col-2">Drop 2</div>
-            <div class="col-2">Drop 3</div>
-            <div class="col-2">Drop 4</div>
-            <div class="col-2">Drop 5</div>
-            <div class="col-2">Drop 6</div>
-        </div>
-        <div class="row">
-            <a href="{% url 'schedule' %}">Open Schedule -></a>
+            <div class="link-to-all">
+                <a href="{% url 'schedule' %}">Open Schedule -></a>
+            </div>
         </div>
     </div>
 </section>
-
+<!--
 <section class="section-style top-collections">
     <div class="row">
-        <h2>Top Collections</h2>
+        <div class="page-title">
+            <h1>Top Collection</h1>
+        </div>
     </div>
     <div class="row">
         <div class="col-4">By 7 Day Volume</div>
@@ -62,5 +77,5 @@
         <div class="col-4">By Owner Count</div>
     </div>
 </section>
-
+-->
 {% endblock content%}

@@ -114,3 +114,57 @@ main {
 .footer-socials {
     width: 50%;
 }
+
+.page-title {
+    text-align: center;
+    margin: 60px 0px;
+    font-weight: normal;
+}
+
+.grid-container-collection {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.grid-item img {
+    width: 100%; 
+}
+
+.featured-collection img {
+    width: 100%; 
+}
+
+.grid-item-3 {
+    grid-row: span 2;
+    grid-column: span 2;
+}
+
+.link-to-all {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.link-to-all a {
+    float: right;
+    padding: 10px;
+    font-size: 17px;
+}
+
+.grid-container-drop {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.featured-drop, .anticipted, .favourite {
+    grid-column: span 2;
+}
+
+.featured-drop img, .anticipted img, .favourite img {
+    width: 100%;
+}
+
+.upcoming-drop img {
+    width: 100%; 
+}

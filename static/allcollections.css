@@ -1,0 +1,42 @@
+col.number-col {
+    width: 5%;
+}
+
+col.collection-col {
+    width: 35%;
+}
+
+col.vol-col, col.weeklyvol-col, col.added-col {
+    width: 20%;
+}
+
+.all-collections-table{
+    border: 1px solid #9CFC51;
+    width: 100%;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+}
+
+.all-collections-table table tr td:first-child, .all-collections-table table tr th:first-child {
+    text-align: center;
+}
+
+.all-collections-table table tr th {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.all-collections-table table tr {
+    height: 55px;
+    border-bottom: 1px solid #9CFC51;
+}
+
+.all-collections-table table tr td img {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    margin-right: 10px;
+}

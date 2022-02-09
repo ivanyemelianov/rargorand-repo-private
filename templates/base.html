@@ -14,6 +14,7 @@
     <script src="https://unpkg.com/htmx.org@1.6.1"></script>
     <link rel="stylesheet" href='{% static "nftcollections/nftcollections-htmx.css" %}'>
     <link rel="stylesheet" href='{% static "home.css" %}'>
+    <link rel="stylesheet" href='{% static "allcollections.css" %}'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;300;400;500&display=swap" rel="stylesheet"> 
@@ -22,12 +23,8 @@
     {% include 'base/navbar.html' %}
     <main class="main-content">
         <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-6">
-                {% block content %}
-                {% endblock content%}
-                </div>
-            </div>
+            {% block content %}
+            {% endblock content%}
         </div>
     </main>
     {% include 'base/footer.html' %}
