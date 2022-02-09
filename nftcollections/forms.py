@@ -1,12 +1,8 @@
 from django import forms
 
 
-from .models import NftCollection, Nft, NftImage
+from .models import NftCollection, Nft
 
-class NftImageForm(forms.ModelForm):
-    class Meta:
-        model = NftImage
-        fields = ['image']
 
 class NftCollectionForm(forms.ModelForm):
     error_css_class = 'error-filed'

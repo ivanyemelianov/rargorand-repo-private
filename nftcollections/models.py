@@ -85,10 +85,6 @@ class NftCollection(models.Model):
         return self.nft_set.all()
     
 
-def nft_image_upload_handler(instance, filename):
-    fpath = pathlib.Path(filename)
-    new_fname = str(uuid.uuid1()) # uuid1 -> uuid + timestamps
-    return f"nftcollections/nft/{new_fname}{fpath.suffix}"
 
 def collection_pre_save(sender, instance, *args, **kwargs):
     if instance.slug is None:
@@ -103,12 +99,10 @@ def collection_post_save(sender, instance, created, *args, **kwargs):
 
 post_save.connect(collection_post_save, sender=NftCollection)
 
-
-class NftImage(models.Model):
-    nftcollection = models.ForeignKey(NftCollection, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=nft_image_upload_handler) # path/to/the/actual/file.png
-    # extracted_text
-
+def nft_image_upload_handler(instance, filename):
+    fpath = pathlib.Path(filename)
+    new_fname = str(uuid.uuid1()) # uuid1 -> uuid + timestamps
+    return f"nftcollections/nft/{new_fname}{fpath.suffix}"
 
 class Nft(models.Model):
     nftcollection = models.ForeignKey("NftCollection", on_delete=models.CASCADE)
@@ -138,3 +132,10 @@ class Nft(models.Model):
             "id": self.id
         }
         return reverse("nftcollections:hx-nft-detail", kwargs=kwargs)
+
+
+class NftAttribute(models.Model):
+    nft = models.ForeignKey("Nft", on_delete=models.CASCADE)
+    category = models.CharField(max_length=220)
+    name = models.CharField(max_length=220)
+

@@ -9,7 +9,6 @@ from .views import (
     nftcollection_detail_hx_view,
     nft_update_hx_view,
     nft_delete_view,
-    nft_image_upload_view,
     nftcollection_single_view
 )
 
@@ -23,7 +22,6 @@ urlpatterns = [
     path("hx/<int:parent_id>/nft/", nft_update_hx_view, name='hx-nft-create'),
     path("hx/<int:id>/", nftcollection_detail_hx_view, name='hx-detail'),
 
-    path("<int:parent_id>/image-upload/", nft_image_upload_view),
     path("<int:parent_id>/nft/<int:id>/delete/", nft_delete_view, name='nft-delete'),
     path("<int:id>/delete/", nftcollection_delete_view, name='delete'),
     path("<int:id>/edit/", nftcollection_update_view, name='update'),
