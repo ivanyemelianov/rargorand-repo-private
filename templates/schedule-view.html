@@ -1,17 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 style="color: #51a82e;">Schedule</h1>
-<ul>
-    {% for x in object_list %}
-        {% if x.title %}
-            {% if not request.user.is_authenticated or user.id != x.user.id %}
-            <li><a href="{{ x.get_single_drop_url }}">{{ x.title }}</a></li>
-            {% else %}
-            <li><a href="{{ x.get_absolute_url }}">{{ x.title }}</a></li>
+
+<div class="page-title">
+    <h1>Schedule</h1>
+</div>
+
+<div class="row">
+    <div class="grid-container-schedule">
+        {% for x in object_list %}
+            {% if x.title %}
+                {% if not request.user.is_authenticated or user.id != x.user.id %}
+                <div class="grid-drop"><img src="{{ x.image.url }}" alt=""><a href="{{ x.get_single_drop_url }}">{{ x.title }}</a></div>
+                {% else %}
+                <div class="grid-drop"><img src="{{ x.image.url }}" alt=""><a href="{{ x.get_absolute_url }}">{{ x.title }}</a></div>
+                {% endif %}
             {% endif %}
-        {% endif %}
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock content%}

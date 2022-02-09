@@ -1,0 +1,9 @@
+.grid-container-schedule {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.grid-drop img {
+    width: 100%;
+}
