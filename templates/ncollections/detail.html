@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ object.name }} </h1> 
+{% if object.get_edit_url %}
+<small>
+    <a href="{{ object.get_edit_url }}">Edit</a>
+    <a href="{{ object.get_delete_url }}">Delete</a>
+    <a href="{{ object.get_nft_create_url }}">Add NFT</a>
+</small>
+{% endif %}
+<p>{{ object.description }}</p>
+
+<h3>NFTs</h3>
+{% for nft in object.get_nft_children %}
+<a href="{{ nft.get_detail_url }}"><h2>{{ nft.name }}</h2></a>
+<p>{{ nft.description }}</p>
+{% endfor %}
+
+{% endblock content%}

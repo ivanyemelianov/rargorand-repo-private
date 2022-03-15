@@ -1,0 +1,5 @@
+<div id="attribute-{{ object.id }}">
+    {{ object.category }}: {{ object.name }}
+    <button hx-trigger='click' hx-get='{{ object.get_hx_edit_url }}' hx-target="#attribute-{{ object.id }}">Edit</button>
+    <a href="{{ object.get_delete_url }}">Remove</a>
+</div>

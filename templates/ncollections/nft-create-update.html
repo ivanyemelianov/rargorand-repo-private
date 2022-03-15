@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if message %}
+<p>{{ message }}</p>
+{% endif %}
+
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+
+<div style="margin-top:30px">
+    {% include 'ncollections/partials/forms.html' %}
+
+    <h3>Attributes</h3>
+    {% for attr in  object.get_attribute_children %}
+        {% include 'ncollections/partials/attribute-inline.html' with object=attr %}
+    {% endfor %}
+    {% if new_attribute_url %}
+    <div id="attribute-create"></div>
+    <button hx-get="{{ new_attribute_url }}" hx-trigger='click' hx-target="#attribute-create" hx-swap='beforend'>Add Attribute</button>
+    {% endif %}
+</div>
+
+<script>
+    
+    document.addEventListener('click', (event)=>{
+        if (event.target.id == 'add-more') {
+            add_new_form(event)
+        }
+    })
+    
+    function add_new_form(event) {
+        if (event) {
+            event.preventDefault()
+        }
+        const totalNewForms = document.getElementById('id_form-TOTAL_FORMS')
+        const currentAttrForms = document.getElementsByClassName('attr-form')
+        const currentFormCount = currentAttrForms.length // + 1
+        const formCopyTarget = document.getElementById('attr-form-list')
+        const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
+        copyEmptyFormEl.setAttribute('class', 'attr-form')
+        copyEmptyFormEl.setAttribute('id', `form-${currentFormCount}`)
+        const regex = new RegExp('__prefix__', 'g')
+        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
+        totalNewForms.setAttribute('value', currentFormCount + 1)
+        // now add new empty form element to our html form
+        formCopyTarget.append(copyEmptyFormEl)
+    }
+    
+
+
+</script>
+
+{% endblock content%}

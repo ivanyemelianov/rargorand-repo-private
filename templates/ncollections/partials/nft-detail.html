@@ -1,0 +1,13 @@
+<h1>{{ object.name }} </h1>
+{% if object.get_edit_url %}
+<small>
+    <a href="{{ object.get_edit_url }}">Edit</a>
+    <a href="{{ object.get_delete_url }}">Delete</a>
+</small>
+{% endif %}
+<p>{{ object.description }}</p>
+
+<h3>Attributes</h3>
+{% for attribute in object.get_attribute_children %}
+<p>{{ attribute.category }}: {{ attribute.name }}</p>
+{% endfor %}

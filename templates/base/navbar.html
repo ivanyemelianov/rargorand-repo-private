@@ -8,7 +8,7 @@
   <div class="menu">
     <ul>
       <li>
-        <a href="{% url 'collections' %}">All Collections</a>
+        <a href="{% url 'ncollections:collections' %}">All Collections</a>
       </li>
       <li>
         <a href="{% url 'schedule' %}">Drop Schedule</a>
@@ -21,7 +21,7 @@
     <ul>
       {% if request.user.is_authenticated %}
       <li>
-        <a href="{% url 'nftcollections:list' %}">My Collections</a>
+        <a href="{% url 'ncollections:list' %}">My Collections</a>
       </li>
       <li>
         <a href="{% url 'drops:list' %}">My Drops</a>

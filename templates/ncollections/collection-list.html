@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-title">
+    <h1>All Collections</h1>
+</div>
+
+<div class="row">
+    <div class="all-collections-table">
+        <table>
+            <colgroup>
+                <col span="1" class="number-col">
+                <col span="1" class="collection-col">
+                <col span="1" class="vol-col">
+                <col span="1" class="weeklyvol-col">
+                <col span="1" class="added-col">
+            </colgroup>
+            <tr>
+                <th>#</th>
+                <th>Collection</th>
+                <th>Volume</th>
+                <th>Volume (7d)</th>
+                <th>Added</th>
+            </tr>
+            {% for x in object_list %}
+            <tr>
+                <td></td>
+                {% if not request.user.is_authenticated or user.id != x.user.id %}
+                <td><img src="{{ x.image.url }}" alt=""><a href="{{ x.get_single_collection_url }}">{{ x.name }}</a></td>
+                {% else %}
+                <td><img src="{{ x.image.url }}" alt=""><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></td>
+                {% endif %}
+                <td>{{ x.volume }}</td>
+                <td>{{ x.weeklyvolume }}</td>
+                <td>{{ x.timestamp }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<script>
+    var table = document.getElementsByTagName('table')[0],
+    rows = table.getElementsByTagName('tr'),
+    text = 'textContent' in document ? 'textContent' : 'innerText';
+
+    for (var i = 0, len = rows.length; i < len; i++) {
+        var k = i + 1;
+        rows[k].children[0][text] = k;
+    }
+</script>
+
+{% endblock content%}
