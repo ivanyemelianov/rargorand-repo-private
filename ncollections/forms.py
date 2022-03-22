@@ -12,8 +12,8 @@ class NcollectionForm(forms.ModelForm):
 class NnftForm(forms.ModelForm):
     error_css_class = 'error-field'
     required_css_class = 'required-field'
-    # name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "NFT name"}))
-    # description = forms.CharField(widget=forms.Textarea(attrs={"rows": 3}))
+    #name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "NFT name"}))
+    #description = forms.CharField(widget=forms.Textarea(attrs={"rows": 3}))
     class Meta:
         model = Nnft
         fields = ['collection', 'name', 'description']

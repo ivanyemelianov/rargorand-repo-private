@@ -72,10 +72,23 @@ def nnft_detail_view(request, parent_id=None, id=None):
 
 @login_required
 def nnft_delete_view(request, parent_id=None, id=None):
-    obj = get_object_or_404(Nnft, collection=parent_id, id=id, user=request.user)
+    try:
+        obj = Nnft.objects.get(collection=parent_id, id=id, user=request.user)
+        #obj = get_object_or_404(Nnft, collection=parent_id, id=id, user=request.user)
+    except:
+        obj = None
+    if obj is None:
+        if request.htmx:
+            return HttpResponse("Not Found")
+        raise Http404
     if request.method == "POST":
         obj.delete()
         success_url = reverse('ncollections:detail', kwargs={"id": parent_id})
+        if request.htmx:
+            headers = {
+                'HX-Redirect': success_url
+            }
+            return HttpResponse("Success", headers=headers)
         return redirect(success_url)
     context = {
         "object": obj
@@ -99,18 +112,18 @@ def nnft_detail_hx_view(request, parent_id=None, id=None):
 
 @login_required
 def nnft_create_view(request, parent_id=None):
-    obj = get_object_or_404(Ncollection, id=parent_id, user=request.user)
-    form = NnftForm(request.POST or None, initial={'collection': obj.id})
+    parent_obj = get_object_or_404(Ncollection, id=parent_id, user=request.user)
+    form = NnftForm(request.POST or None, initial={'collection': parent_obj.id})
     context = {
-        "collection_name": obj.name,
         "form": form
     }
     if form.is_valid():
         obj = form.save(commit=False)
         obj.user = request.user
         obj.save()
-        return redirect(obj.get_absolute_url())
+        return redirect(obj.get_hx_url())
     return render(request, "ncollections/nft-create-update.html", context)
+
 
 @login_required
 def nnft_update_view(request, parent_id=None, id=None):
@@ -127,28 +140,60 @@ def nnft_update_view(request, parent_id=None, id=None):
         context['message'] = 'Data saved.'
     if request.htmx:
         return render(request, "ncollections/partials/forms.html", context)
+    return render(request, "ncollections/nft-create-update.html", context)  
+
+@login_required
+def ooo_nnft_update_view(request, parent_id=None, id=None):
+    obj = get_object_or_404(Nnft, collection=parent_id, id=id, user=request.user)
+    form = NnftForm(request.POST or None, instance=obj)
+    new_attribute_url = reverse("ncollections:hx-attribute-create", kwargs={"parent_id": obj.id})
+    print(new_attribute_url)
+    context = {
+        "form": form,
+        "object": obj,
+        "new_attribute_url": new_attribute_url 
+    }
+    if form.is_valid():
+        form.save()
+        context['message'] = 'Data saved.'
+    if request.htmx:
+        return render(request, "ncollections/partials/forms.html", context)
     return render(request, "ncollections/nft-create-update.html", context)
 
 @login_required
 def nnft_attribute_delete_view(request, collection_id=None, parent_id=None, id=None):
-    obj = get_object_or_404(Nattribute, nft__id=parent_id, id=id, nft__user=request.user)
-    kwargs = {
-        "parent_id": collection_id,
-        "id": parent_id   
-    }
+    try:
+        obj = Nattribute.objects.get(nft__id=parent_id, id=id, nft__user=request.user)
+        #obj = get_object_or_404(Nnft, collection=parent_id, id=id, user=request.user)
+    except:
+        obj = None
+    if obj is None:
+        if request.htmx:
+            return HttpResponse("Not Found")
+        raise Http404
     if request.method == "POST":
         obj.delete()
+        kwargs = {
+            "parent_id": collection_id,
+            "id": parent_id   
+        }
         success_url = reverse('ncollections:nft-detail', kwargs=kwargs)
+        if request.htmx:
+            headers = {
+                'HX-Redirect': success_url
+            }
+            return HttpResponse("Success", headers=headers)
         return redirect(success_url)
     context = {
         "object": obj
     }
     return render(request, "ncollections/delete-nft.html", context)
 
+
 @login_required
 def nnft_attribute_update_hx_view(request, parent_id=None, id=None):
     if not request.htmx:
-        raise Http404
+       raise Http404
     try:
         parent_obj = Nnft.objects.get(id=parent_id, user=request.user)
     except:
@@ -162,7 +207,9 @@ def nnft_attribute_update_hx_view(request, parent_id=None, id=None):
         except:
             instance = None
     form = NattributeForm(request.POST or None, instance=instance)
-    url = instance.get_hx_edit_url() if instance else reverse("ncollections:hx-attribute-create", kwargs={"parent_id": parent_obj.id})
+    url = reverse("ncollections:hx-attribute-create", kwargs={"parent_id": parent_obj.id})
+    if instance:
+        url = instance.get_hx_edit_url()
     context = {
         "url": url,
         "form": form,

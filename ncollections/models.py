@@ -70,7 +70,11 @@ class Nnft(models.Model):
         return self.collection.get_absolute_url()  # This should probably be changed to a view with parent collection and brother nfts
 
     def get_hx_url(self):
-        return reverse("ncollections:hx-nft-detail", kwargs={"id": self.id})
+        kwargs = {
+            "parent_id": self.collection.id,
+            "id": self.id
+        }
+        return reverse("ncollections:hx-nft-detail", kwargs=kwargs)
 
     def get_detail_url(self):
         kwargs = {

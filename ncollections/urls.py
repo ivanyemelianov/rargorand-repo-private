@@ -26,10 +26,10 @@ urlpatterns = [
     path("<int:id>/edit/", collection_update_view, name="update"),
     path("<int:id>/", collection_detail_view, name="detail"),
 
-    path("<int:parent_id>/nft/create/", nnft_create_view, name="nft-create"),
     path("<int:collection_id>/nft/<int:parent_id>/attribute/<int:id>/delete/", nnft_attribute_delete_view, name="attribute-delete"),
     path("hx/nft/<int:parent_id>/attribute/<int:id>", nnft_attribute_update_hx_view, name="hx-attribute-detail"),
     path("hx/nft/<int:parent_id>/attribute/", nnft_attribute_update_hx_view, name="hx-attribute-create"),
+    path("<int:parent_id>/nft/create/", nnft_create_view, name="nft-create"),
     path("hx/<int:parent_id>/nft/<int:id>/", nnft_detail_hx_view, name="hx-nft-detail"),
     path("<int:parent_id>/nft/<int:id>/delete/", nnft_delete_view, name="nft-delete"),
     path("<int:parent_id>/nft/<int:id>/edit/", nnft_update_view, name="nft-update"),
