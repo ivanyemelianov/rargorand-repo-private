@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from drops.models import Drop
-from nftcollections.models import NftCollection
+from ncollections.models import Ncollection
 
 
 SEARCH_TYPE_MAPPING = {
     'drops': Drop,
     'drop': Drop,
-    'nftcollection': NftCollection,
-    'nftcollections': NftCollection,
+    'nftcollection': Ncollection,
+    'nftcollections': Ncollection,
 
 }
 
@@ -15,7 +15,7 @@ SEARCH_TYPE_MAPPING = {
 def search_view(request):
     query = request.GET.get('q')
     search_type = request.GET.get('type')
-    Klass = NftCollection
+    Klass = Ncollection
     if search_type in SEARCH_TYPE_MAPPING.keys():
         Klass = SEARCH_TYPE_MAPPING[search_type]
     qs = Klass.objects.search(query=query)

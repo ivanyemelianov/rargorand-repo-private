@@ -6,7 +6,7 @@ from .models import Ncollection, Nnft, Nattribute
 class NcollectionForm(forms.ModelForm):
     class Meta:
         model = Ncollection
-        fields = ['name', 'description', 'website', 'social_links']
+        fields = ['name', 'image', 'description', 'website', 'social_links']
 
 
 class NnftForm(forms.ModelForm):
@@ -16,7 +16,7 @@ class NnftForm(forms.ModelForm):
     #description = forms.CharField(widget=forms.Textarea(attrs={"rows": 3}))
     class Meta:
         model = Nnft
-        fields = ['collection', 'name', 'description', 'link_to_buy', 'attributes']
+        fields = ['collection', 'name', 'image', 'description', 'link_to_buy', 'attributes']
         widgets = {'collection': forms.HiddenInput()}
 
 

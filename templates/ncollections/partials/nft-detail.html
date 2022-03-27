@@ -1,3 +1,4 @@
+<img src="{% if object.image %}{{ object.image.url }}{% endif %}" alt="">
 <h1>{{ object.name }} </h1>
 {% if object.get_edit_url %}
 <small>

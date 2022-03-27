@@ -37,7 +37,7 @@ def collection_delete_view(request, id=None):
 
 @login_required
 def collection_create_view(request):
-    form = NcollectionForm(request.POST or None)
+    form = NcollectionForm(request.POST or None, request.FILES or None)
     context = {
         "form": form
     }
@@ -51,7 +51,7 @@ def collection_create_view(request):
 @login_required
 def collection_update_view(request, id=None):
     obj = get_object_or_404(Ncollection, id=id, user=request.user)
-    form = NcollectionForm(request.POST or None, instance=obj)
+    form = NcollectionForm(request.POST or None, request.FILES or None, instance=obj)
     context = {
         "form": form,
         "object": obj
@@ -113,7 +113,7 @@ def nnft_detail_hx_view(request, parent_id=None, id=None):
 @login_required
 def nnft_create_view(request, parent_id=None):
     parent_obj = get_object_or_404(Ncollection, id=parent_id, user=request.user)
-    form = NnftForm(request.POST or None, initial={'collection': parent_obj.id})
+    form = NnftForm(request.POST or None, request.FILES or None, initial={'collection': parent_obj.id})
     context = {
         "form": form
     }
@@ -128,7 +128,7 @@ def nnft_create_view(request, parent_id=None):
 @login_required
 def nnft_update_view(request, parent_id=None, id=None):
     obj = get_object_or_404(Nnft, collection=parent_id, id=id, user=request.user)
-    form = NnftForm(request.POST or None, instance=obj)
+    form = NnftForm(request.POST or None, request.FILES or None, instance=obj)
     new_attribute_url = reverse("ncollections:hx-attribute-create", kwargs={"parent_id": obj.id})
     context = {
         "form": form,
@@ -142,23 +142,6 @@ def nnft_update_view(request, parent_id=None, id=None):
         return render(request, "ncollections/partials/forms.html", context)
     return render(request, "ncollections/nft-create-update.html", context)  
 
-@login_required
-def ooo_nnft_update_view(request, parent_id=None, id=None):
-    obj = get_object_or_404(Nnft, collection=parent_id, id=id, user=request.user)
-    form = NnftForm(request.POST or None, instance=obj)
-    new_attribute_url = reverse("ncollections:hx-attribute-create", kwargs={"parent_id": obj.id})
-    print(new_attribute_url)
-    context = {
-        "form": form,
-        "object": obj,
-        "new_attribute_url": new_attribute_url 
-    }
-    if form.is_valid():
-        form.save()
-        context['message'] = 'Data saved.'
-    if request.htmx:
-        return render(request, "ncollections/partials/forms.html", context)
-    return render(request, "ncollections/nft-create-update.html", context)
 
 @login_required
 def nnft_attribute_delete_view(request, collection_id=None, parent_id=None, id=None):

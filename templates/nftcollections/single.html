@@ -8,7 +8,7 @@
 <p>{{ object.timestamp }}</p>
 <p>{{ object.description }}</p>
 <p>{{ object.website }}</p>
-<img src="{{ object.image.url }}" alt="">
+<img src="{% if object.image %}{{ object.image.url }}{% endif %}" alt="">
 
 {% for nft in object.get_nfts_children %}
 <h2>{{ nft.name }}</h2>
@@ -16,7 +16,7 @@
 <p>{{ nft.rarity }}</p>
 <p>{{ nft.timestamp }}</p>
 <p>{{ nft.description }}</p>
-<img src="{{ nft.image.url }}" alt="">
+<img src="{% if nft.image %}{{ nft.image.url }}{% endif %}" alt="">
 {% endfor %}
 
 {% endblock content%}

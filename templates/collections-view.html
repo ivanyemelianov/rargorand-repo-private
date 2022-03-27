@@ -27,9 +27,9 @@
             <tr>
                 <td></td>
                 {% if not request.user.is_authenticated or user.id != x.user.id %}
-                <td><img src="{{ x.image.url }}" alt=""><a href="{{ x.get_single_collection_url }}">{{ x.name }}</a></td>
+                <td><img src="{% if x.image %}{{ x.image.url }}{% endif %}" alt=""><a href="{{ x.get_single_collection_url }}">{{ x.name }}</a></td>
                 {% else %}
-                <td><img src="{{ x.image.url }}" alt=""><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></td>
+                <td><img src="{% if x.image %}{{ x.image.url }}{% endif %}" alt=""><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></td>
                 {% endif %}
                 <td>{{ x.volume }}</td>
                 <td>{{ x.weeklyvolume }}</td>

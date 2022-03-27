@@ -12,13 +12,17 @@
                 <div class="grid-item-3 featured-collection">
                     {% for x in featured_collection %}
                         <div class="">{{ x.name }}</div>
+                        {% if x.image %}
                         <img src="{{ x.image.url }}" alt="">
+                        {% endif %}
                     {% endfor %}
                 </div>
                 {% for x in new_collections %}
                 <div class="grid-item">
                     <div class="">{{ x.name }}</div>
-                    <img src="{{ x.image.url }}" alt="">
+                    {% if x.image %}
+                        <img src="{{ x.image.url }}" alt="">
+                        {% endif %}
                 </div>
                 {% endfor %}
             </div>
@@ -40,22 +44,30 @@
             <div class="grid-container-drop">
                 <div class="featured-drop">
                     {% for x in featured_drop %}
+                        {% if x.image %}
                         <img src="{{ x.image.url }}" alt="">
+                        {% endif %}
                     {% endfor %}
                 </div>
                 <div class="anticipted">
                     {% for x in most_anticipated %}
+                        {% if x.image %}
                         <img src="{{ x.image.url }}" alt="">
+                        {% endif %}
                     {% endfor %}
                 </div>
                 <div class="favourite">
                     {% for x in future_favourite %}
+                        {% if x.image %}
                         <img src="{{ x.image.url }}" alt="">
+                        {% endif %}
                     {% endfor %}
                 </div>
                 {% for x in upcomming_drops %}
                 <div class="upcoming-drop">
-                        <img src="{{ x.image.url }}" alt="">
+                    {% if x.image %}
+                    <img src="{{ x.image.url }}" alt="">
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>

@@ -2,6 +2,7 @@
 
 {% block content %}
 
+<img src="{% if object.image %}{{ object.image.url }}{% endif %}" alt="">
 <h1>{{ object.name }} </h1> 
 {% if object.get_edit_url %}
 <small>
@@ -12,8 +13,10 @@
 {% endif %}
 <p>{{ object.description }}</p>
 
+
 <h3>NFTs</h3>
 {% for nft in object.get_nft_children %}
+<img src="{% if nft.image %}{{nft.image.url }}{% endif %}" alt="">
 <a href="{{ nft.get_detail_url }}"><h2>{{ nft.name }}</h2></a>
 <p>{{ nft.description }}</p>
 {% endfor %}

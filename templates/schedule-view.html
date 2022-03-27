@@ -11,9 +11,9 @@
         {% for x in object_list %}
             {% if x.title %}
                 {% if not request.user.is_authenticated or user.id != x.user.id %}
-                <div class="grid-drop"><img src="{{ x.image.url }}" alt=""><a href="{{ x.get_single_drop_url }}">{{ x.title }}</a></div>
+                <div class="grid-drop"><img src="{% if x.image %}{{ x.image.url }}{% endif %}" alt=""><a href="{{ x.get_single_drop_url }}">{{ x.title }}</a></div>
                 {% else %}
-                <div class="grid-drop"><img src="{{ x.image.url }}" alt=""><a href="{{ x.get_absolute_url }}">{{ x.title }}</a></div>
+                <div class="grid-drop"><img src="{% if x.image %}{{ x.image.url }}{% endif %}" alt=""><a href="{{ x.get_absolute_url }}">{{ x.title }}</a></div>
                 {% endif %}
             {% endif %}
         {% endfor %}
@@ -21,3 +21,4 @@
 </div>
 
 {% endblock content%}
+

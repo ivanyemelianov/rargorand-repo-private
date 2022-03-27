@@ -1,9 +1,36 @@
+import pathlib
+import uuid
+
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.db.models import Q
 from .utils import slugify_instance_title
 from django.db.models.signals import pre_save, post_save
 
+
+
+class NcollectionQuerySet(models.QuerySet):
+    def search(self, query=None):
+        if query is None or query == "":
+            return self.none()
+        lookups = (
+            Q(name__icontains=query) | 
+            Q(description__icontains=query)
+        )
+        return self.filter(lookups) 
+
+class NcollectionManager(models.Manager):
+    def get_queryset(self):
+        return NcollectionQuerySet(self.model, using=self._db)
+
+    def search(self, query=None):
+        return self.get_queryset().search(query=query)
+
+def collection_image_upload_handler(instance, filename):
+    fpath = pathlib.Path(filename)
+    new_fname = str(uuid.uuid1()) # uuid1 -> uuid + timestamps
+    return f"nftcollections/collection/{new_fname}{fpath.suffix}"
 
 class Ncollection(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -18,7 +45,9 @@ class Ncollection(models.Model):
     social_links = models.TextField(blank=True, null=True)
     volume = models.BigIntegerField(blank=True, null=True)
     weekly_volume = models.IntegerField(blank=True, null=True)
-    #image = models.ImageField(upload_to=collection_image_upload_handler, blank=True, null=True)
+    image = models.ImageField(upload_to=collection_image_upload_handler, blank=False, null=True)
+
+    objects = NcollectionManager()
 
     def get_absolute_url(self):
         return reverse("ncollections:detail", kwargs={"id": self.id})
@@ -54,6 +83,12 @@ def collection_post_save(sender, instance, created, *args, **kwargs):
 
 post_save.connect(collection_post_save, sender=Ncollection)  
 
+def nft_image_upload_handler(instance, filename):
+    fpath = pathlib.Path(filename)
+    new_fname = str(uuid.uuid1()) # uuid1 -> uuid + timestamps
+    return f"nftcollections/nft/{new_fname}{fpath.suffix}"
+
+
 class Nnft(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     collection = models.ForeignKey("Ncollection", on_delete=models.CASCADE)
@@ -65,7 +100,7 @@ class Nnft(models.Model):
     rarity = models.CharField(max_length=50, blank=True, null=True)
     link_to_buy = models.TextField(blank=True, null=True)
     attributes = models.TextField(blank=True, null=True)
-    #image = models.ImageField(upload_to=nft_image_upload_handler, blank=True, null=True)
+    image = models.ImageField(upload_to=nft_image_upload_handler, blank=False, null=True)
 
     def get_absolute_url(self):
         return self.collection.get_absolute_url()  # This should probably be changed to a view with parent collection and brother nfts

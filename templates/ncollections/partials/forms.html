@@ -1,7 +1,7 @@
-<form action='.' method="POST" hx-post="." hx-swap='outerHTML'>
+<form action='.' method="POST" hx-post="." hx-swap='outerHTML' enctype="multipart/form-data" hx-encoding="multipart/form-data">
     {% csrf_token %}
-   {% for field in form %}
-   <div class='{% if field.field.required %}{{ form.required_css_class }}{%endif%}'>
+    {% for field in form %}
+    <div class='{% if field.field.required %}{{ form.required_css_class }}{%endif%}'>
     {{ field.errors }}   
     {% if field is form.collection %}  
     {{ field }}
@@ -20,28 +20,3 @@
     <p>{{ message }}</p>
     {% endif %}
 </form>
-
-
-<!-- <form action="." method="POST" hx-post='.' hx-swap='outerHTML'>
-    {% csrf_token %}
-    {% for field in form %}
-    <div class='{% if field.field.required %}{{ form.required_css_class }}{%endif%}'>
-    {{ field.errors }} 
-    {% if field is form.collection %}  
-    {{ field }}
-    {% else %}
-    {{ field.label_tag }} {{ field }}
-    {% endif %}
-    {% if field.help_text %}
-        <p class="help">{{ field.help_text|safe }}</p>
-    {% endif %}
-    </div>
-    {% endfor %}
-
-    
-    <div class="htmx-indicator">Loading...</div>
-    <button class="htmx-inverted-indicator" style="margin-top: 10px;" type="submit">Save</button>
-    {% if message %}
-    <p>{{ message }}</p>
-    {% endif %}
-</form> -->

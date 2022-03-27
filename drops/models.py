@@ -33,7 +33,7 @@ class Drop(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=120, blank=False, null=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
-    description = models.TextField()
+    description = models.TextField(max_length=500, blank=False, null=True)
     genre = models.CharField(max_length=120, default=None, blank=True, null=True)
     featured = models.BooleanField(default=False)
     mostanticipated = models.BooleanField(default=False)
