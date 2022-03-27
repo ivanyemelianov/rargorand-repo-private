@@ -11,12 +11,14 @@
             <div class="grid-container-collection">
                 <div class="grid-item-3 featured-collection">
                     {% for x in featured_collection %}
+                        <div class="">{{ x.name }}</div>
                         <img src="{{ x.image.url }}" alt="">
                     {% endfor %}
                 </div>
                 {% for x in new_collections %}
                 <div class="grid-item">
-                        <img src="{{ x.image.url }}" alt="">
+                    <div class="">{{ x.name }}</div>
+                    <img src="{{ x.image.url }}" alt="">
                 </div>
                 {% endfor %}
             </div>

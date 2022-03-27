@@ -2,14 +2,14 @@ import random
 from django.shortcuts import redirect, render, get_object_or_404
 
 from drops.models import Drop
-from nftcollections.models import NftCollection
+from ncollections.models import Ncollection
 
 
 def home_view(request, *args, **kwargs):
     drop_queryset = Drop.objects.all()
     last_six_drops_q = Drop.objects.filter().order_by('-id')[:6]
-    featured_q = NftCollection.objects.filter(featured=True)
-    last_eight_q = NftCollection.objects.filter().order_by('-id')[:11]
+    featured_q = Ncollection.objects.filter(featured=True)
+    last_eight_q = Ncollection.objects.filter().order_by('-id')[:11]
     featured_drop_q = Drop.objects.filter(featured=True)
     ma_drop_q = Drop.objects.filter(mostanticipated=True)
     ff_drop_q = Drop.objects.filter(futurefavourite=True)

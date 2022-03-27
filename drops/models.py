@@ -31,7 +31,7 @@ def collection_image_upload_handler(instance, filename):
 
 class Drop(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
-    title = models.CharField(max_length=120)
+    title = models.CharField(max_length=120, blank=False, null=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
     description = models.TextField()
     genre = models.CharField(max_length=120, default=None, blank=True, null=True)
