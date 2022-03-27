@@ -5,7 +5,8 @@ from .models import Drop
 class DropForm(forms.ModelForm):
     class Meta:
         model = Drop
-        fields = ['title', 'description', 'image', 'genre']
+        fields = ['title', 'release_date', 'release_time', 'description', 'image', 'genre']
+        
 
     def clean(self):
         data = self.cleaned_data

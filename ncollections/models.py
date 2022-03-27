@@ -46,6 +46,7 @@ class Ncollection(models.Model):
     volume = models.BigIntegerField(blank=True, null=True)
     weekly_volume = models.IntegerField(blank=True, null=True)
     image = models.ImageField(upload_to=collection_image_upload_handler, blank=False, null=True)
+    #owners
 
     objects = NcollectionManager()
 

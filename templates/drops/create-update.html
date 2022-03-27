@@ -9,10 +9,39 @@
     .hidden {
         display: none
     }
+    .datepicker-panel > ul[data-view="week"] > li, .datepicker-panel > ul[data-view="week"] > li:hover {
+        background: #282828;
+    }
+    .datepicker-panel > ul > li {
+        background: #282525;
+    }
+    .datepicker-panel > ul > li.picked, .datepicker-panel > ul > li.picked:hover {
+        color: #3acc25;
+    }
+    .datepicker-panel > ul > li:hover {
+        background-color: #3b4437;
+    }
+    .datepicker-panel > ul > li.highlighted {
+        background-color: #2f3e2a;
+    }
+    .datepicker-dropdown {
+        border: 1px solid #69c15d;
+        box-shadow: 0 3px 6px #79bb62;
+    }
+    .datepicker-top-left::after, .datepicker-top-right::after {
+        border-bottom-color: #3eb93a;
+        top: -5px;
+    }
 </style>
 
 <div style='margin-top:30px;'>
     {% include 'drops/partials/forms.html' %}
 </div>
-      
+
+<script>
+    $(function () {
+      $("#id_release_date").datepicker();
+    });
+</script>    
 {% endblock content %}
+
