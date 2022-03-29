@@ -41,12 +41,12 @@
 </div>
 
 <script>
-    var table = document.getElementsByTagName('table')[0],
-    rows = table.getElementsByTagName('tr'),
-    text = 'textContent' in document ? 'textContent' : 'innerText';
+    let table = document.getElementsByTagName('table')[0]
+    let rows = table.getElementsByTagName('tr')
+    let text = 'textContent' in document ? 'textContent' : 'innerText';
 
-    for (var i = 0, len = rows.length; i < len; i++) {
-        var k = i + 1;
+    for (let i = 0, len = rows.length; i < len; i++) {
+        let k = i + 1;
         rows[k].children[0][text] = k;
     }
 </script>

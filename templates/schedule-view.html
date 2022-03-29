@@ -2,23 +2,61 @@
 
 {% block content %}
 
+
 <div class="page-title">
     <h1>Schedule</h1>
+</div>
+<div class="row">
+    <div class="total-of-drops">
+        <p>{{ total_of_drops }} Total Upcoming</p>
+    </div>
 </div>
 
 <div class="row">
     <div class="grid-container-schedule">
-        {% for x in object_list %}
+        {% for x in drops %}
             {% if x.title %}
                 {% if not request.user.is_authenticated or user.id != x.user.id %}
-                <div class="grid-drop"><img src="{% if x.image %}{{ x.image.url }}{% endif %}" alt=""><a href="{{ x.get_single_drop_url }}">{{ x.title }}</a></div>
+                <div class="grid-drop" style="background-image: url({% if x.image %}{{ x.image.url }}{% endif %});">
+                    <div class="drop-content">
+                        <a href="{{ x.get_single_drop_url }}">{{ x.title }}</a>
+                        <div class="drop-date-time">{{ x.release_date }} - {{ x.release_time }}</div>
+                    </div>
+                </div>
                 {% else %}
-                <div class="grid-drop"><img src="{% if x.image %}{{ x.image.url }}{% endif %}" alt=""><a href="{{ x.get_absolute_url }}">{{ x.title }}</a></div>
+                <div class="grid-drop" style="background-image: url({% if x.image %}{{ x.image.url }}{% endif %});">
+                    <div class="drop-content">
+                        <a href="{{ x.get_single_drop_url }}">{{ x.title }}</a>
+                        <div class="drop-date-time">{{ x.release_date }} - {{ x.release_time }}</div>
+                    </div>
+                </div>
                 {% endif %}
+                
             {% endif %}
         {% endfor %}
     </div>
 </div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+      <li class="page-item">
+        {% if drops.has_previous %}
+        <a class="page-link " href="?page={{ drops.previous_page_number }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+        {% endif %}
+      </li>
+      {% for i in nums %}
+      <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+      {% endfor %}
+      <li class="page-item">
+        {% if drops.has_next %}
+        <a class="page-link " href="?page={{ drops.next_page_number }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+        {% endif %}
+      </li>
+    </ul>
+  </nav>
 
 {% endblock content%}
 

@@ -3,7 +3,60 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 20px;
 }
-
 .grid-drop img {
     width: 100%;
+}
+.grid-drop {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid #9CFC51;
+    box-sizing: border-box;
+    box-shadow: 3px 3px 7px 3px #423F24;
+}
+.drop-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background: rgba(4, 27, 0, 0.5);
+    padding: 10px 0;
+}
+.total-of-drops p {
+    float: right;
+}
+.page-link {
+    position:relative;
+    display:block;
+    color:#fff;
+    text-decoration:none;
+    background-color:#fff0;
+    border:1px solid #9CFC51;
+    transition: none;
+    box-sizing: border-box;
+    box-shadow: 3px 3px 7px 3px #423F24;
+}
+.page-item:first-child .page-link {
+    border-top-left-radius: 0rem; 
+    border-bottom-left-radius: 0rem; 
+}
+.page-item:last-child .page-link {
+    border-top-right-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+}
+.page-link {
+    margin-left: 3px !important;
+}
+ul[class], ol[class] {
+    margin: 20px 0;
+    padding: 0;
+}
+.page-link:hover {
+    z-index:2;
+    color:#fff;
+    background-color:#5c6a4b;
+    border-color:#abd776;
 }

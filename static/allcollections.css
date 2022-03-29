@@ -14,6 +14,7 @@ col.vol-col, col.weeklyvol-col, col.added-col {
     border: 1px solid #9CFC51;
     width: 100%;
     padding: 20px;
+    margin-bottom: 100px;
 }
 
 table {

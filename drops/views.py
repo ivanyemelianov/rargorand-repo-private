@@ -3,6 +3,7 @@ from django.http import Http404, HttpResponse
 from django.forms.models import modelformset_factory
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator
 
 from .forms import DropForm
 from .models import Drop
@@ -113,8 +114,18 @@ def drop_single_view(request, slug=None):
 
 def schedule_view(request, *args, **kwargs):
     drop_queryset = Drop.objects.all()
+    total_of_drops = Drop.objects.all().count()
+
+    p = Paginator(drop_queryset, 5)
+    page = request.GET.get('page')
+    drops = p.get_page(page)
+    nums = "a" * drops.paginator.num_pages
+
     context = {
         "object_list": drop_queryset,
+        "total_of_drops": total_of_drops,
+        "drops": drops,
+        "nums": nums
     }
     return render(request, "schedule-view.html", context=context)
 
