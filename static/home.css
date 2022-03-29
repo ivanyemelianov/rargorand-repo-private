@@ -51,11 +51,11 @@ main {
 }
 
 .logo {
-    width: 15%;    
+    width: 12%;    
 }
 
 .menu {
-    width: 30%;
+    width: 28%;
 }
 
 .menu ul li {
@@ -83,8 +83,47 @@ main {
 }
 
 .socials {
-    width: 10%;
+    width: 15%;
 }
+.user-links a {
+    padding: 10px 12px;
+    border-radius: 50px;
+    border: 1px solid #9CFC51;
+    text-decoration: none;
+    color: #9CFC51;
+  }
+  .menu ul, .login-out ul {
+    margin: 0;
+  }
+  .btn-outline-success {
+    color:#9cfc51;
+    border-color:#9cfc51;
+  }
+  .form-control {
+    color:#99f84f;
+    background-color:#fff0;
+    border:1px solid #99f84f;
+    border-radius: 0;
+  }
+  #search-type {
+    width: 125px;
+  }
+  #search-type option {
+    color: #252525;
+  }
+  .btn {
+    border-radius: 0;
+  }
+  .logo img {
+    width: 120px;
+  }
+  .form-control:focus {
+    border-color: #99f84f;
+    box-shadow: none;
+    color: #fff;
+    background-color: #8adc4a1c;
+    border-color: none;
+  }
 
 .site-footer {
     width: 100%;
