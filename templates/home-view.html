@@ -2,27 +2,48 @@
 
 {% block content %}
 
+<style>
+    
+</style>
+
 <section class="section-style new-collections-s">
     <div class="container">
         <div class="row">
             <div class="page-title">
-                <h1>New Collections</h1>
+                <h1>Newest Collections</h1>
             </div>
             <div class="grid-container-collection">
                 <div class="grid-item-3 featured-collection">
                     {% for x in featured_collection %}
-                        <div class="">{{ x.name }}</div>
-                        {% if x.image %}
-                        <img src="{{ x.image.url }}" alt="">
-                        {% endif %}
+                        <div class="featured-collection-card">
+                            <div class="featured-collection-flag" >
+                                <p>Featured Collection</p>
+                            </div>
+                            {% if x.image %}
+                            <img src="{{ x.image.url }}" alt="">
+                            {% endif %}
+                            <div class="featured-collection-name">{{ x.name }}</div>
+                            <div class="featured-collection-description">{{ x.description }}</div>
+                            <div class="featured-collection-card-bottom">
+                                <div class="featured-collection-volume">Volume: {{ x.volume }} ALGO</div>
+                                <div class="featured-collection-added">Added: {{ x.timestamp }}</div>
+                            </div>
+                        </div>
                     {% endfor %}
                 </div>
                 {% for x in new_collections %}
                 <div class="grid-item">
-                    <div class="">{{ x.name }}</div>
-                    {% if x.image %}
+                    <div class="collection-card">
+                        {% if x.image %}
                         <img src="{{ x.image.url }}" alt="">
                         {% endif %}
+                        <div class="collection-name">{{ x.name }}</div>
+                        <div class="collection-description">{{ x.description }}</div>
+                        <div class="collection-card-bottom">
+                            <div class="collection-volume">Volume: {{ x.volume }} ALGO</div>
+                            <div class="collection-added">Added: {{ x.timestamp }}</div>
+                        </div>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
@@ -42,32 +63,59 @@
                 <h1>Upcoming Drops</h1>
             </div>
             <div class="grid-container-drop">
-                <div class="featured-drop">
-                    {% for x in featured_drop %}
-                        {% if x.image %}
-                        <img src="{{ x.image.url }}" alt="">
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="anticipted">
-                    {% for x in most_anticipated %}
-                        {% if x.image %}
-                        <img src="{{ x.image.url }}" alt="">
-                        {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="favourite">
-                    {% for x in future_favourite %}
-                        {% if x.image %}
-                        <img src="{{ x.image.url }}" alt="">
-                        {% endif %}
-                    {% endfor %}
-                </div>
+                {% for x in featured_drop %}
+                {% if x.image %}
+                <div class="featured-drop" style="background-image: url({{ x.image.url }});">
+                    <div class="featured-drop-flag" >
+                        <p>Featured Drop</p>
+                    </div>
+                    <div class="upcoming-drop-card-content">
+                        <div class="drop-name">{{ x.name }}</div>
+                        <div class="drop-date-time">{{ x.release_date }} - {{ x.release_time }}</div>
+                    </div>
+                </div> 
+                {% endif %}
+                {% endfor %}
+
+                {% for x in most_anticipated %}
+                {% if x.image %}
+                <div class="anticipated" style="background-image: url({{ x.image.url }});">
+                    <div class="featured-drop-flag" >
+                        <p>Most Anticipated</p>
+                    </div>
+                    <div class="upcoming-drop-card-content">
+                        <div class="drop-name">{{ x.name }}</div>
+                        <div class="drop-date-time">{{ x.release_date }} - {{ x.release_time }}</div>
+                    </div>
+                </div> 
+                {% endif %}
+                {% endfor %}
+
+                {% for x in future_favourite %}
+                {% if x.image %}
+                <div class="favourite" style="background-image: url({{ x.image.url }});">
+                    <div class="featured-drop-flag" >
+                        <p>Future Favourite</p>
+                    </div>
+                    <div class="upcoming-drop-card-content">
+                        <div class="drop-name">{{ x.name }}</div>
+                        <div class="drop-date-time">{{ x.release_date }} - {{ x.release_time }}</div>
+                    </div>
+                </div> 
+                {% endif %}
+                {% endfor %}
+                
+                
                 {% for x in upcomming_drops %}
                 <div class="upcoming-drop">
                     {% if x.image %}
-                    <img src="{{ x.image.url }}" alt="">
+                    <div class="upcoming-drop-wrap" style="background-image: url({{ x.image.url }});">
                     {% endif %}
+                    <div class="upcoming-drop-card-content">
+                        <div class="drop-name">{{ x.name }}</div>
+                        <div class="drop-date-time">{{ x.release_date }} - {{ x.release_time }}</div>
+                    </div>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
