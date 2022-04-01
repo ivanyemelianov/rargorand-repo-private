@@ -36,5 +36,5 @@ urlpatterns = [
     path("<int:parent_id>/nft/<int:id>/", nnft_detail_view, name="nft-detail"),
 
     path('all/', g_collection_list_view, name='collections'),
-    path("<slug:slug>/", ncollection_single_view, name='single-collection'),
+    path("<slug:slug>/<int:id>/", ncollection_single_view, name='single-collection'),
 ]

@@ -54,7 +54,7 @@ class Ncollection(models.Model):
         return reverse("ncollections:detail", kwargs={"id": self.id})
     
     def get_single_collection_url(self):
-        return reverse("ncollections:single-collection", kwargs={"slug": self.slug})
+        return reverse("ncollections:single-collection", kwargs={"slug": self.slug, "id": self.id})
 
     def get_edit_url(self):
         return reverse("ncollections:update", kwargs={"id": self.id})

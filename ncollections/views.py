@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.forms.models import modelformset_factory
 from django.http import HttpResponse, Http404
 from django.urls import reverse
+from django.core.paginator import Paginator
 
 from .models import Ncollection, Nnft, Nattribute
 from .forms import NcollectionForm, NnftForm, NattributeForm
@@ -207,8 +208,11 @@ def nnft_attribute_update_hx_view(request, parent_id=None, id=None):
         return render(request, "ncollections/partials/attribute-inline.html", context)
     return render(request, "ncollections/partials/attribute-form.html", context)
 
-def ncollection_single_view(request, slug=None):
+def ncollection_single_view(request, slug=None, id=None):
     collection_obj = None
+    list_of_nfts = Nnft.objects.filter(collection=id) #filter(collection__name=slug).all()
+    total_of_nfts = len(list_of_nfts)
+   
     if slug is not None:
         try:
             collection_obj = Ncollection.objects.get(slug=slug)
@@ -218,8 +222,17 @@ def ncollection_single_view(request, slug=None):
             collection_obj = Ncollection.objects.filter(slug=slug).first()
         except:
             raise Http404
+    
+    p = Paginator(list_of_nfts, 24)
+    page = request.GET.get('page')
+    nfts = p.get_page(page)
+    nums = "a" * nfts.paginator.num_pages
+
     context = {
         "object": collection_obj,
+        "total_of_nfts": total_of_nfts,
+        "nfts": nfts,
+        "nums": nums
     }
     return render(request, "ncollections/single.html", context=context)
 

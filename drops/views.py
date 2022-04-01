@@ -122,7 +122,6 @@ def schedule_view(request, *args, **kwargs):
     nums = "a" * drops.paginator.num_pages
 
     context = {
-        "object_list": drop_queryset,
         "total_of_drops": total_of_drops,
         "drops": drops,
         "nums": nums

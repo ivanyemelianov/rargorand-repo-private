@@ -2,21 +2,81 @@
 
 {% block content %}
 
-<h1>{{ object.name }}</h1>
-<p>{{ object.volume }}</p>
-<p>{{ object.weekly_volume }}</p>
-<p>{{ object.timestamp }}</p>
-<p>{{ object.description }}</p>
-<p>{{ object.website }}</p>
-<p>{{ object.social_links }}</p>
-<img src="{% if object.image %}{{ object.image.url }}{% endif %}" alt="">
+<div class="row">
+    <div class="single-collection-top">
+        <img src="{% if object.image %}{{ object.image.url }}{% endif %}" alt="Collection Logo">
+        <h1>{{ object.name }}</h1>
+    </div>
+</div>
 
-{% for nft in object.get_nft_children %}
-<h2>{{ nft.name }}</h2>
-<p>{{ object.name }}</p>
-<p>{{ nft.timestamp }}</p>
-<p>{{ nft.description }}</p>
-<img src="{% if nft.image %}{{ nft.image.url }}{% endif %}" alt="">
-{% endfor %}
+<div class="row">
+    <div class="single-collection-numbers">
+        <p class="volume"> <span class="single-collection-numbers-label">Volume:</span> {{ object.volume }} ALGO</p>
+        <p class="weekly-volume"> <span class="single-collection-numbers-label">Weekly Volume:</span> {{ object.weekly_volume }} ALGO</p>
+        <p class="timestamp"><span class="timestamp-value"><span class="single-collection-numbers-label">Added:</span> {{ object.timestamp }}</span></p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="single-collection-description">
+        <h3>Description:</h3>
+        <p>{{ object.description }}</p>
+    </div>      
+</div>
+
+<div class="row">
+    <div class="single-collection-website">
+        <span class="single-collection-numbers-label">Website:</span> <a href="https://{{ object.website }}">{{ object.website }}</a></p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="single-collection-social-links">
+        <p>{{ object.social_links }}</p>
+    </div>
+</div>
+
+<div class="row nft-gallery-content">
+    <div class="col-2">
+        <div class="nft-filters">
+            <h2>Filters:</h2>
+        </div>
+    </div>
+    <div class="col-10">
+        <div class="total-of-nfts">
+            <p>Total Nfts: {{ total_of_nfts }}</p>
+        </div>
+        <div class="grid-container-nft-gallery">
+            {% for nft in nfts %}
+            <div class="grid-nft" style="background-image: url({% if nft.image %}{{ nft.image.url }}{% endif %});">
+                <div class="nft-content">
+                    <a href="#">{{ nft.name }}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+              <li class="page-item">
+                {% if nfts.has_previous %}
+                <a class="page-link " href="?page={{ nfts.previous_page_number }}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+                {% endif %}
+              </li>
+              {% for i in nums %}
+              <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+              {% endfor %}
+              <li class="page-item">
+                {% if nfts.has_next %}
+                <a class="page-link " href="?page={{ nfts.next_page_number }}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+                {% endif %}
+              </li>
+            </ul>
+          </nav>
+    </div>
+</div>
 
 {% endblock content%}

@@ -31,8 +31,8 @@
                 {% else %}
                 <td><img src="{% if x.image %}{{ x.image.url }}{% endif %}" alt=""><a href="{{ x.get_absolute_url }}">{{ x.name }}</a></td>
                 {% endif %}
-                <td>{{ x.volume }}</td>
-                <td>{{ x.weeklyvolume }}</td>
+                <td>{{ x.volume }} ALGO</td>
+                <td>{{ x.weeklyvolume }} ALGO</td>
                 <td>{{ x.timestamp }}</td>
             </tr>
             {% endfor %}

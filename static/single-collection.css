@@ -1,0 +1,85 @@
+
+.single-collection-top {
+    display: flex;
+    margin-top: 70px;
+}
+.single-collection-top img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+}
+.single-collection-top h1 {
+    font-size: 50px;
+    font-weight: normal;
+    margin-left: 20px;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+.single-collection-numbers {
+    display: flex;
+    height: 70px;
+    flex-wrap: wrap;
+    align-content: center;
+}
+.single-collection-numbers p {
+    margin: 0;
+}
+.single-collection-numbers .volume {
+    width: 20%;
+}
+.single-collection-numbers .weekly-volume {
+    width: 20%;
+}
+.single-collection-numbers .timestamp {
+    width: 60%;
+}
+.single-collection-numbers .timestamp .timestamp-value {
+    float: right;
+}
+.single-collection-numbers-label {
+    color: #ADADAD;
+}
+.single-collection-description h3{
+    font-weight: normal;
+    font-size: 25px;
+}
+.single-collection-description p {
+    font-family: 'Roboto' ,serif;
+    font-size: 18px;
+    font-weight: 400;
+    width: 60%;
+}
+.single-collection-social-links {
+    margin-bottom: 50px;
+}
+.nft-filters h2 {
+    font-weight: normal;
+    font-size: 25px;
+}
+.grid-container-nft-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+.grid-nft {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid #9CFC51;
+    box-sizing: border-box;
+    box-shadow: 3px 3px 7px 3px #423F24;
+}
+.nft-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background: rgba(4, 27, 0, 0.5);
+    padding: 10px 0;
+}
+.nft-gallery-content {
+    margin-bottom: 50px;
+}
