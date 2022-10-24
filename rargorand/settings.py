@@ -162,7 +162,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles" #for digitalocean: BASE_DIR / "staticfiles-cdn"
+STATIC_ROOT = BASE_DIR / "staticfiles-cdn"
 
 MEDIA_ROOT = BASE_DIR / "staticfiles-cdn" / "uploads"
 
